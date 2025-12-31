@@ -1,0 +1,31 @@
+---
+
+import DetailsAccordion from "./DetailsAccordion.astro"
+
+const { title, faq } = Astro.props
+
+---
+
+<section class="bs-container bs-mt-lg" id="faq">
+
+  <!-- Header with context -->
+  <div class="text-center mb-12 max-w-3xl mx-auto">
+    { title && <h2 class="bs-h2 mb-4" set:html={ title } />}
+    <p class="bs-body-text text-bs-foreground-dark">
+      Have questions about Bitcoin and separating money from state? Let's address the most common concerns.
+    </p>
+  </div>
+
+  <!-- FAQ -->
+  <div class="grid gap-2 max-w-4xl mx-auto">
+
+    <!-- Item -->
+    { faq.map( item =>
+
+      <DetailsAccordion question={item.question} answer={item.answer} />
+
+    )}
+
+  </div>
+
+</section>

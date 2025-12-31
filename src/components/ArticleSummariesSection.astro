@@ -1,0 +1,71 @@
+---
+const { title } = Astro.props
+---
+
+<section id="articles" class="bs-container bs-mt-lg">
+  <!-- Header -->
+  <header class="text-center mb-12">
+    <h2 class="bs-h2">{ title }</h2>
+  </header>
+
+  <!-- Articles Grid -->
+  <div class="grid md:grid-cols-2 gap-8">
+
+    <!-- Article 1: Website Objective -->
+    <article class="bg-bs-surface-0 border border-bs-surface-3 rounded-xl p-6 md:p-8">
+      <div class="flex flex-col gap-4">
+        <h3 class="bs-h3 text-bs-foreground-dark">Why Separate Money & State?</h3>
+        <p class="bs-body-text text-pretty">
+          Just as separation of church and state protects freedoms, separating money from state control empowers economic independence. Fiat fuels inflation, inequality, and corruption. Bitcoin offers decentralized sound money.
+        </p>
+        <div class="flex items-center justify-between">
+          <cite class="text-sm text-bs-foreground-light">From our core philosophy</cite>
+          <a href="#quote" class="bs-btn text-sm">Read More</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- Article 2: Jack Mallers Speech -->
+    <article class="bg-bs-surface-0 border border-bs-surface-3 rounded-xl p-6 md:p-8">
+      <div class="flex flex-col gap-4">
+        <h3 class="bs-h3 text-bs-foreground-dark">Bitcoin as Ethical Money for the Youth</h3>
+        <p class="bs-body-text text-pretty">
+          Jack Mallers reveals how fiat currency destroyed his generation through debt, addiction, and inequality. Bitcoin isn't just money—it's ethical resistance and a peaceful path to a better future.
+        </p>
+        <div class="flex items-center justify-between">
+          <cite class="text-sm text-bs-foreground-light">Jack Mallers, BTC Prague 2023</cite>
+          <a href="https://btcprague.com/bitcoin-as-ethical-money-for-the-youth-jack-mallers-vision-of-a-new-renaissance/#" target="_blank" rel="noopener" class="bs-btn text-sm">Read Full Article →</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- Article 3: Cypherpunk Manifesto -->
+    <article class="bg-bs-surface-0 border border-bs-surface-3 rounded-xl p-6 md:p-8">
+      <div class="flex flex-col gap-4">
+        <h3 class="bs-h3 text-bs-foreground-dark">A Cypherpunk's Manifesto</h3>
+        <p class="bs-body-text text-pretty">
+          Privacy is necessary for an open society. We must defend our privacy with cryptography and electronic money. Bitcoin embodies this vision—anonymous transaction systems that protect individuals from surveillance.
+        </p>
+        <div class="flex items-center justify-between">
+          <cite class="text-sm text-bs-foreground-light">Eric Hughes, 1993</cite>
+          <a href="https://www.activism.net/cypherpunk/manifesto.html" target="_blank" rel="noopener" class="bs-btn text-sm">Read Manifesto →</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- Article 4: SMS Citadel 21 -->
+    <article class="bg-bs-surface-0 border border-bs-surface-3 rounded-xl p-6 md:p-8">
+      <div class="flex flex-col gap-4">
+        <h3 class="bs-h3 text-bs-foreground-dark">Why Only Bitcoin?</h3>
+        <p class="bs-body-text text-pretty">
+          Other cryptocurrencies have CEOs, leaders, and centralized control. They can be shut down or captured. Bitcoin alone is decentralized, with no central authority. It's the only peaceful path to monetary freedom.
+        </p>
+        <div class="flex items-center justify-between">
+          <cite class="text-sm text-bs-foreground-light">Citadel 21 Analysis</cite>
+          <a href="#services" class="bs-btn text-sm">Learn More</a>
+        </div>
+      </div>
+    </article>
+
+  </div>
+</section>

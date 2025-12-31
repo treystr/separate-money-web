@@ -1,0 +1,276 @@
+---
+const { title = "The Silent Theft" } = Astro.props;
+
+// M1SL data from FRED (annual data from 1960 to 2025)
+// Data source: https://fred.stlouisfed.org/series/M1SL
+const m1Data = [
+  { date: "1960", value: 140.7 },
+  { date: "1961", value: 143.1 },
+  { date: "1962", value: 146.5 },
+  { date: "1963", value: 150.9 },
+  { date: "1964", value: 156.8 },
+  { date: "1965", value: 163.5 },
+  { date: "1966", value: 170.5 },
+  { date: "1967", value: 177.7 },
+  { date: "1968", value: 190.1 },
+  { date: "1969", value: 201.4 },
+  { date: "1970", value: 214.4 },
+  { date: "1971", value: 228.3 },
+  { date: "1972", value: 249.2 },
+  { date: "1973", value: 262.9 },
+  { date: "1974", value: 274.2 },
+  { date: "1975", value: 287.1 },
+  { date: "1976", value: 306.2 },
+  { date: "1977", value: 331.1 },
+  { date: "1978", value: 357.3 },
+  { date: "1979", value: 381.8 },
+  { date: "1980", value: 408.5 },
+  { date: "1981", value: 436.7 },
+  { date: "1982", value: 474.8 },
+  { date: "1983", value: 521.4 },
+  { date: "1984", value: 551.6 },
+  { date: "1985", value: 619.8 },
+  { date: "1986", value: 724.7 },
+  { date: "1987", value: 749.9 },
+  { date: "1988", value: 786.7 },
+  { date: "1989", value: 793.9 },
+  { date: "1990", value: 824.8 },
+  { date: "1991", value: 897.0 },
+  { date: "1992", value: 1024.9 },
+  { date: "1993", value: 1129.6 },
+  { date: "1994", value: 1150.7 },
+  { date: "1995", value: 1143.1 },
+  { date: "1996", value: 1081.3 },
+  { date: "1997", value: 1072.5 },
+  { date: "1998", value: 1095.8 },
+  { date: "1999", value: 1102.3 },
+  { date: "2000", value: 1087.0 },
+  { date: "2001", value: 1182.1 },
+  { date: "2002", value: 1219.4 },
+  { date: "2003", value: 1306.1 },
+  { date: "2004", value: 1376.3 },
+  { date: "2005", value: 1374.5 },
+  { date: "2006", value: 1366.5 },
+  { date: "2007", value: 1372.5 },
+  { date: "2008", value: 1434.0 },
+  { date: "2009", value: 1694.5 },
+  { date: "2010", value: 1837.6 },
+  { date: "2011", value: 2162.8 },
+  { date: "2012", value: 2448.9 },
+  { date: "2013", value: 2618.1 },
+  { date: "2014", value: 2893.5 },
+  { date: "2015", value: 3022.5 },
+  { date: "2016", value: 3246.1 },
+  { date: "2017", value: 3490.7 },
+  { date: "2018", value: 3696.7 },
+  { date: "2019", value: 3901.8 },
+  { date: "2020", value: 18158.5 },
+  { date: "2021", value: 20281.0 },
+  { date: "2022", value: 20543.0 },
+  { date: "2023", value: 20656.4 },
+  { date: "2024", value: 18912.8 },
+  { date: "2025", value: 19025.7 },
+];
+
+const labels = m1Data.map(d => d.date);
+const values = m1Data.map(d => d.value);
+const dataJson = JSON.stringify({ labels, values });
+---
+
+<section class="py-16 md:py-24">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-6xl mx-auto">
+      
+      <!-- Header -->
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
+          {title}
+        </h2>
+        <p class="text-lg text-bs-foreground-dark max-w-3xl mx-auto">
+          Your savings are being stolen. This chart shows the Federal Reserve's money printing machine running wild—turning $141 billion in 1960 into $19 trillion today.
+          The 2020 spike alone created 400% more dollars, making everything you own worth less. Housing, education, retirement—all becoming unaffordable while both political parties keep the printer running.
+        </p>
+      </div>
+
+      <!-- Chart Container -->
+      <div class="bg-bs-surface-0 rounded-2xl p-6 md:p-8 lg:p-10 border border-bs-surface-3">
+        <div class="relative">
+          <canvas id="m1Chart" class="w-full" style="max-height: 500px;"></canvas>
+        </div>
+        
+        <!-- Source Attribution -->
+        <div class="mt-6 pt-6 border-t border-bs-surface-3">
+          <p class="text-sm text-bs-foreground-dark text-center">
+            Data Source: 
+            <a 
+              href="https://fred.stlouisfed.org/series/M1SL" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              class="text-orange-500 hover:text-orange-400 underline transition-colors"
+            >
+              Federal Reserve Economic Data (FRED) - M1 Money Stock
+            </a>
+          </p>
+          <p class="text-xs text-bs-foreground-dark text-center mt-2">
+            M1 consists of currency, demand deposits, and other liquid deposits. 
+            Values in billions of dollars, seasonally adjusted.
+          </p>
+        </div>
+      </div>
+
+      <!-- Key Insight -->
+      <div class="mt-8 bg-bs-surface-2 rounded-xl p-6 border border-orange-500/20">
+        <div class="flex items-start gap-4">
+          <div class="flex-shrink-0 w-12 h-12 rounded-full bg-orange-500/10 flex items-center justify-center">
+            <span class="text-2xl">⚠️</span>
+          </div>
+          <div>
+            <h3 class="text-xl font-bold text-orange-500 mb-2">Your Money, Their Machine</h3>
+            <p class="text-bs-foreground-dark">
+              Remember when a house cost $25,000? College was affordable? That was before Nixon severed gold from the dollar in 1971.
+              Since then, your purchasing power has been systematically destroyed—135 times more money in circulation, but your savings buy less than half what they once did.
+              The 2020 money tsunami alone created 400% more dollars, making everything from groceries to gas stations unaffordable.
+              <strong class="text-bs-foreground-light">This isn't economics—it's generational theft. Your children's future is being diluted away.</strong>
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script define:vars={{ dataJson }}>
+  // Import Chart.js from CDN
+  const chartData = JSON.parse(dataJson);
+  
+  function initChart() {
+    const ctx = document.getElementById('m1Chart');
+    if (!ctx || typeof Chart === 'undefined') {
+      console.error('Chart.js not loaded or canvas not found');
+      return;
+    }
+
+    // Format date for display (just the year)
+    const formatDate = (dateStr) => {
+      return dateStr;
+    };
+
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: chartData.labels,
+        datasets: [{
+          label: 'M1 Money Supply',
+          data: chartData.values,
+          borderColor: 'rgb(249, 115, 22)', // Bitcoin orange (orange-500)
+          backgroundColor: 'rgba(249, 115, 22, 0.1)',
+          borderWidth: 3,
+          fill: true,
+          tension: 0.3,
+          pointRadius: 0,
+          pointHoverRadius: 6,
+          pointHoverBackgroundColor: 'rgb(249, 115, 22)',
+          pointHoverBorderColor: '#fff',
+          pointHoverBorderWidth: 2,
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        aspectRatio: 2.2,
+        interaction: {
+          intersect: false,
+          mode: 'index',
+        },
+        plugins: {
+          legend: {
+            display: false
+          },
+          tooltip: {
+            enabled: true,
+            backgroundColor: 'rgba(18, 18, 18, 0.95)',
+            titleColor: '#eee',
+            bodyColor: '#eee',
+            borderColor: 'rgb(249, 115, 22)',
+            borderWidth: 1,
+            padding: 12,
+            displayColors: false,
+            callbacks: {
+              title: function(context) {
+                return formatDate(context[0].label);
+              },
+              label: function(context) {
+                const value = context.parsed.y;
+                return `$${value.toLocaleString('en-US', { 
+                  minimumFractionDigits: 1,
+                  maximumFractionDigits: 1 
+                })} billion`;
+              }
+            }
+          }
+        },
+        scales: {
+          x: {
+            display: true,
+            grid: {
+              display: false,
+              drawBorder: false
+            },
+            ticks: {
+              color: '#9f9f9f',
+              maxRotation: 0,
+              minRotation: 0,
+              autoSkip: false,
+              callback: function(value, index) {
+                const label = this.getLabelForValue(value);
+                const year = parseInt(label);
+                // Only show labels for years divisible by 5
+                if (year % 5 === 0) {
+                  return formatDate(label);
+                }
+                return '';
+              }
+            }
+          },
+          y: {
+            display: true,
+            grid: {
+              color: 'rgba(255, 255, 255, 0.05)',
+              drawBorder: false
+            },
+            ticks: {
+              color: '#9f9f9f',
+              callback: function(value) {
+                if (value >= 1000) {
+                  return '$' + (value / 1000).toFixed(0) + 'T';
+                } else {
+                  return '$' + value.toFixed(0) + 'B';
+                }
+              }
+            },
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  }
+
+  // Load Chart.js if not already loaded
+  if (typeof Chart === 'undefined') {
+    const script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js';
+    script.onload = initChart;
+    document.head.appendChild(script);
+  } else {
+    initChart();
+  }
+</script>
+
+<style>
+  canvas {
+    display: block;
+    width: 100% !important;
+  }
+</style>
+

@@ -1,0 +1,61 @@
+---
+import Layout from "../layouts/Layout.astro"
+import Image from "astro/components/Image.astro"
+
+// Import all poster images dynamically
+const posterModules = import.meta.glob("../assets/posters/*.jpg", { eager: true })
+const posters = Object.entries(posterModules).map(([path, module]) => {
+  const filename = path.split('/').pop()?.replace('.jpg', '') || ''
+  return {
+    name: filename,
+    image: (module as any).default,
+    pdfUrl: `/${filename}.pdf` // PDFs are in public folder
+  }
+})
+
+const pageTitle = "Posters | Separate Money & State"
+const pageDescription = "Download professional posters to spread the message of separating money from state control. Print and share Bitcoin education materials."
+---
+
+<Layout title={pageTitle} description={pageDescription}>
+
+  <div class="bs-container bs-mt-lg">
+    <div class="text-center mb-12">
+      <h1 class="bs-h1 mb-4">Spread the Word</h1>
+      <p class="bs-body-text text-lg max-w-2xl mx-auto">
+        Download and print professional posters to help educate others about the importance of
+        separating money from state control. Each poster is designed for high-quality printing
+        and comes with a PDF version optimized for professional print shops.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+      {posters.map((poster) => (
+        <div class="group bg-bs-surface-2 border border-bs-surface-3 rounded-xl overflow-hidden hover:border-orange-500/50 transition-all duration-300">
+          <div class="aspect-[3/4] overflow-hidden">
+            <Image
+              src={poster.image}
+              alt={`Poster ${poster.name}`}
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              loading="lazy"
+            />
+          </div>
+          <div class="p-6">
+            <div class="flex gap-3">
+              <a
+                href={poster.pdfUrl}
+                download
+                class="bs-btn text-center"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Download PDF
+              </a>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+
+</Layout>

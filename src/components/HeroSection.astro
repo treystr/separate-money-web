@@ -1,0 +1,35 @@
+---
+
+import Image from "astro/components/Image.astro"
+import hero_poster from "../assets/theme-images/hero-poster.png"
+
+const { title, content } = Astro.props
+
+---
+
+<section class="bs-container min-h-[calc(100svh-96px)] flex flex-col lg:flex-row items-center pt-4 pb-8 lg:pt-0 lg:pb-0">
+
+  <!-- Content -->
+  <div class="flex flex-col gap-6 lg:max-w-lg w-full pt-4 pb-8 lg:pt-8 lg:pb-16">
+
+    <!-- Title -->
+    <h1 class="bs-h1" set:html={ title } />
+
+    <!-- Content -->
+    <div class="bs-body-text xl:text-xl flex flex-col gap-4 [&_p]:last:text-bs-foreground-dark" set:html={ content } />
+
+    <!-- CTA -->
+    <!-- <button type="button" class="bs-btn self-start bs-mt-sm" onclick="demo.showModal()">
+      { settings.demo.cta }
+    </button> -->
+
+  </div>
+
+  <!-- Image -->
+  <figure class="flex place-content-center lg:flex-1 lg:max-h-[75vh] -mt-12 lg:mt-0">
+
+    <Image src={ hero_poster } format="avif" quality="high" alt="Screens showing phone, tablet and desktop views of our website" loading="eager" class="object-contain max-h-full w-auto" />
+
+  </figure>
+
+</section>

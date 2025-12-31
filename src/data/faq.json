@@ -1,0 +1,30 @@
+[
+  {
+    "question": "What problem does Bitcoin actually solve?",
+    "answer": "Bitcoin solves the fundamental problem of government control over money. Since 1971, governments have printed unlimited currency, causing inflation that silently steals your purchasing power. Bitcoin's fixed supply of 21 million coins means no one can devalue your savings. Learn more: <a href='https://www.bitcoin.com/get-started/what-is-bitcoin/' target='_blank' rel='noopener'>What is Bitcoin?</a>"
+  },
+  {
+    "question": "Why can't I just save money in dollars?",
+    "answer": "Every dollar you save loses value through inflation—a hidden tax that hits working families hardest. Since Nixon ended the gold standard in 1971, the dollar has lost over 85% of its purchasing power. Bitcoin can't be printed endlessly like fiat currency. Read: <a href='https://wtfhappenedin1971.com/' target='_blank' rel='noopener'>WTF Happened in 1971?</a>"
+  },
+  {
+    "question": "How does Bitcoin give me financial freedom?",
+    "answer": "Bitcoin lets you be your own bank. You control your money directly without needing permission from banks or governments. No one can freeze your account, deny your transaction, or inflate away your wealth. It's peaceful sovereignty. Learn about self-custody: <a href='https://bitcoin.org/en/secure-your-wallet' target='_blank' rel='noopener'>Bitcoin Security</a>"
+  },
+  {
+    "question": "Why only Bitcoin and not other crypto?",
+    "answer": "Other cryptocurrencies have CEOs, marketing teams, and can be shut down by governments. Bitcoin has no leader, no company, and can't be stopped. It's the only truly decentralized money that separates money from state control. Read: <a href='https://medium.com/@vijayboyapati/the-bullish-case-for-bitcoin-6ecc8bdecc1' target='_blank' rel='noopener'>The Bullish Case for Bitcoin</a>"
+  },
+  {
+    "question": "How do I start using Bitcoin?",
+    "answer": "Start by learning, then secure a wallet, and begin stacking sats (small amounts of Bitcoin). You don't need to buy a whole Bitcoin—you can start with $10. Take it slow and learn as you go. Get started: <a href='https://bitcoin.org/en/getting-started' target='_blank' rel='noopener'>Bitcoin.org Getting Started</a> | <a href='https://river.com/learn/' target='_blank' rel='noopener'>River Learn</a>"
+  },
+  {
+    "question": "What are the real risks I should know about?",
+    "answer": "Bitcoin's price is volatile short-term, and if you lose your private keys, your Bitcoin is gone forever. There's no customer service to call. But the biggest risk might be not opting in while fiat continues to devalue your savings. Learn about security: <a href='https://bitcoin.org/en/secure-your-wallet' target='_blank' rel='noopener'>Securing Your Wallet</a>"
+  },
+  {
+    "question": "Is this legal? What about taxes?",
+    "answer": "Bitcoin is legal in most countries, and yes, you must pay taxes on gains (just like stocks or property). We're not advocating breaking laws—we're promoting peaceful adoption of better money. This is about opting into something better, not rebellion. Tax guidance: <a href='https://www.irs.gov/businesses/small-businesses-self-employed/digital-assets' target='_blank' rel='noopener'>IRS Digital Assets</a>"
+  }
+]

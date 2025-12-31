@@ -1,0 +1,129 @@
+---
+
+import Layout from "../layouts/Layout.astro"
+
+import CypherpunkManifestoSection from "../components/CypherpunkManifestoSection.astro"
+import FaqSection from "../components/FaqSection.astro"
+import FinalCTASection from "../components/FinalCTASection.astro"
+import GenerationalImpactSection from "../components/GenerationalImpactSection.astro"
+import HayekSection from "../components/HayekSection.astro"
+import ServicesCarousel from "../components/ServicesCarousel.astro"
+import PosterShowcase from "../components/PosterShowcase.astro"
+import HeroSection from "../components/HeroSection.astro"
+import M1SLChart from "../components/M1SLChart.astro"
+import SectionDivider from "../components/SectionDivider.astro"
+import VideoEmbedsSection from "../components/VideoEmbedsSection.astro"
+
+import faq from "../data/faq.json"
+import services from "../data/services.json"
+import home from "../data/home.json"
+import global_settings from "../data/global_settings.json"
+
+// Poster data for the spread the word section
+const posterData = [
+  {
+    "title": "Spread the Word",
+    "content": "<strong>Help others understand the importance of separating money from state control.</strong> Download professional posters and share the Bitcoin message in your community. Each poster is designed for high-quality printing and comes with PDF versions optimized for professional print shops.",
+    "cta": "See our Propaganda",
+    "image": "/poster1.jpg",
+    "image_alt": "Bitcoin education poster"
+  }
+]
+
+---
+
+<Layout title={ global_settings.title }>
+
+  <!-- 1. Hero -->
+  <HeroSection
+    content={ home.hero_content }
+    title={ home.hero_title }
+  />
+
+  <!-- 2. The Cost of Our Inheritance -->
+  <ServicesCarousel
+    services={ services }
+    title={ home.services_title }
+  />
+
+  <SectionDivider variant="default" />
+
+  <!-- 3. The Silent Theft -->
+  <M1SLChart />
+
+  <SectionDivider variant="default" />
+
+  <!-- 4. What's the Problem & Why -->
+  <VideoEmbedsSection
+    title={ home.video_embeds_title }
+  />
+
+  <SectionDivider variant="default" />
+
+  <!-- 5. A Generation's Inheritance: Debt, Division, Decay -->
+  <GenerationalImpactSection
+    title={ home.generational_impact_title }
+    quote={ home.generational_impact_quote }
+    cite={ home.generational_impact_cite }
+    role={ home.generational_impact_role }
+  />
+
+  <SectionDivider variant="default" />
+
+  <!-- 6. A Sly, Roundabout Way -->
+  <HayekSection
+    title={ home.hayek_section_title }
+    description={ home.hayek_section_description }
+    quote={ home.hayek_section_quote }
+    cite={ home.hayek_section_cite }
+    role={ home.hayek_section_role }
+    videoTitle={ home.hayek_video_title }
+    videoDescription={ home.hayek_video_description }
+    videoUrl={ home.hayek_video_url }
+  />
+
+  <SectionDivider variant="default" />
+
+  <!-- 7. Privacy is Necessary for Freedom -->
+  <CypherpunkManifestoSection
+    title={ home.cypherpunk_manifesto_title }
+    description={ home.cypherpunk_manifesto_description }
+    link={ home.cypherpunk_manifesto_link }
+    quote={ home.cypherpunk_manifesto_quote }
+    cite={ home.cypherpunk_manifesto_cite }
+    role={ home.cypherpunk_manifesto_role }
+  />
+
+  <SectionDivider variant="default" />
+
+  <!-- 8. Further Reading (commented out) -->
+  {/*
+  <ArticleSummariesSection
+    title={ home.article_summaries_title }
+  />
+  */}
+
+  <!-- 9. FAQ -->
+  <FaqSection
+    faq={ faq }
+    title={ home.faq_title }
+  />
+
+  <SectionDivider variant="default" />
+
+  <!-- 10. Spread the Word -->
+  <PosterShowcase
+    services={ posterData }
+  />
+
+  <SectionDivider variant="spacer" />
+
+  <!-- 11. Opt In CTA -->
+  <FinalCTASection
+    title={ home.final_cta_title }
+    content={ home.final_cta_content }
+    cta_text={ home.final_cta_text }
+    cta_link={ home.final_cta_link }
+  />
+
+</Layout>

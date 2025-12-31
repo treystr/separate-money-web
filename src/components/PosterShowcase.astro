@@ -1,0 +1,73 @@
+---
+import Image from "astro/components/Image.astro"
+
+// Import poster images
+const posterModules = import.meta.glob("../assets/posters/*.jpg", { eager: true })
+const posters = Object.entries(posterModules).map(([path, module]) => {
+  const filename = path.split('/').pop()?.replace('.jpg', '') || ''
+  return {
+    name: filename,
+    image: (module as any).default
+  }
+})
+
+const { services } = Astro.props
+const posterItem = services[0] // We only have one poster item for now
+const posterImage = posters.find(p => p.name === posterItem.image?.replace('/', ''))
+
+---
+
+<section id="poster-showcase" class="bs-container bs-mt-lg">
+  <div class="max-w-6xl mx-auto">
+    <!-- Two-column layout: Poster image and content side-by-side -->
+    <div class="grid lg:grid-cols-4 gap-8 lg:gap-12 items-center max-w-5xl mx-auto">
+
+      <!-- Poster Image (takes up 1/4 of the width on large screens) -->
+      <div class="lg:col-span-1">
+        <div class="bg-bs-surface-0 border border-bs-surface-3 rounded-xl overflow-hidden shadow-lg">
+          <div class="aspect-[3/4] overflow-hidden">
+            {posterImage ? (
+              <Image
+                src={posterImage.image}
+                alt={posterItem.image_alt || "Bitcoin education poster"}
+                class="w-full h-full object-cover"
+                loading="lazy"
+                width={600}
+                height={800}
+                format="avif"
+              />
+            ) : (
+              <img
+                src={posterItem.image}
+                alt={posterItem.image_alt || "Bitcoin education poster"}
+                class="w-full h-full object-cover"
+                loading="lazy"
+              />
+            )}
+          </div>
+        </div>
+      </div>
+
+      <!-- Content (takes up 3/4 of the width on large screens) -->
+      <div class="lg:col-span-3 space-y-6">
+        <!-- Title -->
+        <h2 class="bs-h2" set:html={posterItem.title} />
+
+        <!-- Description -->
+        <div class="bs-body-text text-pretty max-w-2xl" set:html={posterItem.content} />
+
+        <!-- Call to Action -->
+        <div class="pt-4">
+          <a href="/posters" class="bs-btn inline-flex items-center gap-2">
+            {posterItem.cta}
+            <!-- Arrow icon -->
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

@@ -1,0 +1,31 @@
+---
+import Image from "astro/components/Image.astro"
+import wallpaper05 from "../assets/wallpapers/wallpaper-05.jpg"
+
+const { title, content, cta_text, cta_link } = Astro.props
+---
+
+<section id="final-cta" class="bs-container bs-mt-lg">
+  <div class="border border-bs-surface-3 rounded-xl p-8 md:p-12 text-center bg-gradient-to-r from-bs-surface-0 to-bs-surface-1 text-white relative overflow-hidden">
+    <Image
+      src={wallpaper05}
+      alt=""
+      loading="lazy"
+      class="absolute inset-0 w-full h-full object-cover object-center opacity-20 md:opacity-40"
+      width={1920}
+      height={1080}
+      format="avif"
+    />
+    <div class="max-w-3xl mx-auto relative z-10">
+      <h2 class="bs-h2 mb-6">{ title }</h2>
+      <p class="bs-body-text text-pretty mb-8 text-lg">
+        { content }
+      </p>
+      <div class="flex justify-center">
+        <a href={ cta_link } class="bs-btn">
+          { cta_text }
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

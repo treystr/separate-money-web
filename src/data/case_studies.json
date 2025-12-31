@@ -1,0 +1,12 @@
+[
+  {
+    "title": "Control & Decentralization",
+    "sector": "Control",
+    "content": "<strong>Fiat System:</strong> Centralized by governments, prone to manipulation. <strong>Bitcoin Alternative:</strong> Decentralized, peer-to-peer network—no single point of failure. Bitcoin puts control back in your hands, away from state monopolies.",
+    "case_study_link": "https://bitcoin.org",
+    "cta": "Learn More",
+    "image": "/content-images/spike.news.avif",
+    "image_alt": "Bitcoin network visualization",
+    "bg": "bg-gradient-to-r from-indigo-500 to-purple-600"
+  }
+]

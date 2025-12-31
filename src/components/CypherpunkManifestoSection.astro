@@ -1,0 +1,57 @@
+---
+const {
+  title,
+  description,
+  link,
+  quote,
+  cite,
+  role
+} = Astro.props
+---
+
+<section id="cypherpunk-manifesto" class="bs-container bs-mt-lg">
+  <!-- Header -->
+  <header class="text-center mb-12">
+    <h2 class="bs-h2">{ title }</h2>
+  </header>
+
+  <!-- Content -->
+  <div class="max-w-4xl mx-auto">
+    <div class="bg-bs-surface-0 border border-bs-surface-3 rounded-xl p-8 md:p-12">
+      <div class="mb-8 flex justify-center">
+        <img
+          src="/src/assets/images/wired_cypherpunk.png"
+          alt="Cypherpunk illustration representing privacy and freedom"
+          class="max-w-full h-auto rounded-lg shadow-lg"
+        />
+      </div>
+      <p class="bs-body-text mb-8 text-bs-foreground-dark">
+        { description }
+      </p>
+
+      <div class="mb-6">
+        <a
+          href={ link }
+          target="_blank"
+          rel="noopener noreferrer"
+          class="bs-btn inline-flex items-center gap-2"
+        >
+          Read the Full Manifesto
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+          </svg>
+        </a>
+      </div>
+
+      <!-- Quote -->
+      <blockquote class="border-l-4 border-bs-accent pl-6 italic">
+        <p class="bs-body-text text-lg text-bs-foreground-dark mb-4">
+          "{ quote }"
+        </p>
+        <cite class="not-italic text-sm text-bs-foreground-light">
+          — { cite }, { role }
+        </cite>
+      </blockquote>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,55 @@
+---
+
+import Logo from '../assets/theme-images/logo.svg'
+
+// No props needed
+
+---
+
+<footer class="@container bs-container my-24 font-semibold text-bs-foreground-dark" id="contact">
+
+  <!-- Wrapper -->
+  <div class="bg-bs-surface-2 p-8 md:p-12 rounded-xl">
+
+    <div class="flex flex-col md:flex-row items-center justify-between gap-8">
+
+      <!-- Left: Logo and back to top -->
+      <div class="flex items-center gap-6">
+        <a class="flex group" href="#top" aria-label="Back to top">
+          <Logo class="group-hover:-rotate-180 group-hover:scale-80 transition-transform ease-bs-spring duration-1000" height="48" width="48" />
+        </a>
+        
+        <div class="flex flex-col gap-1">
+          <p class="text-bs-foreground-light font-semibold">Separate Money & State</p>
+          <p class="text-bs-foreground-dark text-sm font-normal">Choose Bitcoin. Choose Freedom.</p>
+        </div>
+      </div>
+
+      <!-- Right: Resources -->
+      <nav class="flex flex-col sm:flex-row gap-4 sm:gap-6 text-center sm:text-left">
+        <a 
+          href="/bitcoin.pdf" 
+          target="_blank"
+          rel="noopener"
+          class="text-bs-foreground-light hover:text-bs-foreground-light/80 transition-colors duration-150 flex items-center gap-2"
+        >
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+          </svg>
+          Bitcoin Whitepaper
+        </a>
+      </nav>
+
+    </div>
+
+    <!-- Disclaimer -->
+    <div class="mt-8 pt-6 border-t border-bs-surface-3">
+      <p class="text-xs text-bs-foreground-dark text-center font-normal">
+        This site promotes the peaceful adoption of better money and is for educational purposes only.
+      </p>
+    </div>
+
+  </div>
+
+</footer>
+

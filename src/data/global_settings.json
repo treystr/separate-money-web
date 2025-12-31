@@ -1,0 +1,19 @@
+{
+  "title": "SEPARATE MONEY & STATE",
+  "description": "Separate Money & State. Opt-out & choose Bitcoin.",
+  "social_image": "/1200x630.jpg",
+  "base_url": "https://separatemoneyandstate.com",
+  "demo": {
+    "title": "DemoTitle",
+    "content": "<strong>Demo Title</strong>",
+    "cta": "Get Started with Bitcoin"
+  },
+  "theme_color": "#18181b",
+  "nav": [
+
+  ],
+
+  "social_links": [
+
+  ]
+}

@@ -1,0 +1,64 @@
+---
+const {
+  title,
+  description,
+  quote,
+  cite,
+  role,
+  videoTitle,
+  videoDescription,
+  videoUrl
+} = Astro.props
+---
+
+<section id="hayek-section" class="bs-container bs-mt-lg">
+  <!-- Header -->
+  <header class="text-center mb-12">
+    <h2 class="bs-h2">{ title }</h2>
+  </header>
+
+  <!-- Content -->
+  <div class="max-w-6xl mx-auto">
+    <!-- Description -->
+    <div class="mb-12 text-center">
+      <p class="bs-body-text text-xl text-bs-foreground-dark max-w-4xl mx-auto" set:html={ description }></p>
+    </div>
+
+    <!-- Video and Quote Grid -->
+    <div class="grid lg:grid-cols-2 gap-12 items-start">
+      <!-- Video -->
+      <div class="bg-bs-surface-0 border border-bs-surface-3 rounded-xl overflow-hidden">
+        <div class="aspect-video">
+          <iframe
+            width="100%"
+            height="100%"
+            src={ videoUrl }
+            title={ videoTitle }
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+            loading="lazy">
+          </iframe>
+        </div>
+        <div class="p-6">
+          <h3 class="bs-h3 text-bs-foreground-dark mb-2">{ videoTitle }</h3>
+          <p class="bs-body-text text-sm">
+            { videoDescription }
+          </p>
+        </div>
+      </div>
+
+      <!-- Quote -->
+      <div class="bg-bs-surface-0 border border-bs-surface-3 rounded-xl p-8">
+        <blockquote class="border-l-4 border-bs-accent pl-6">
+          <p class="bs-body-text text-bs-foreground-dark mb-6 italic">
+            "{ quote }"
+          </p>
+          <cite class="not-italic text-sm text-bs-foreground-light">
+            — { cite }, { role }
+          </cite>
+        </blockquote>
+      </div>
+    </div>
+  </div>
+</section>
