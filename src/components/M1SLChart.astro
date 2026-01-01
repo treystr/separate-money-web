@@ -101,19 +101,15 @@ const dataJson = JSON.stringify({ labels, values });
         <!-- Source Attribution -->
         <div class="mt-6 pt-6 border-t border-bs-surface-3">
           <p class="text-sm text-bs-foreground-dark text-center">
-            Data Source: 
-            <a 
-              href="https://fred.stlouisfed.org/series/M1SL" 
-              target="_blank" 
+            Source:
+            <a
+              href="https://fred.stlouisfed.org/series/M1SL"
+              target="_blank"
               rel="noopener noreferrer"
-              class="text-orange-500 hover:text-orange-400 underline transition-colors"
+              class="text-orange-500 hover:text-orange-400 underline transition-colors ml-1"
             >
-              Federal Reserve Economic Data (FRED) - M1 Money Stock
+              FRED M1SL
             </a>
-          </p>
-          <p class="text-xs text-bs-foreground-dark text-center mt-2">
-            M1 consists of currency, demand deposits, and other liquid deposits. 
-            Values in billions of dollars, seasonally adjusted.
           </p>
         </div>
       </div>
@@ -121,7 +117,7 @@ const dataJson = JSON.stringify({ labels, values });
       <!-- Key Insight -->
       <div class="mt-8 bg-bs-surface-2 rounded-xl p-6 border border-orange-500/20">
         <div class="flex items-start gap-4">
-          <div class="flex-shrink-0 w-12 h-12 rounded-full bg-orange-500/10 flex items-center justify-center">
+          <div class="flex-shrink-0 w-12 h-12 rounded-full bg-orange-500/10 flex items-center justify-center hidden">
             <span class="text-2xl">⚠️</span>
           </div>
           <div>
@@ -144,6 +140,8 @@ const dataJson = JSON.stringify({ labels, values });
   // Import Chart.js from CDN
   const chartData = JSON.parse(dataJson);
   
+  let chartInstance = null;
+
   function initChart() {
     const ctx = document.getElementById('m1Chart');
     if (!ctx || typeof Chart === 'undefined') {
@@ -151,12 +149,17 @@ const dataJson = JSON.stringify({ labels, values });
       return;
     }
 
+    // Destroy existing chart if it exists
+    if (chartInstance) {
+      chartInstance.destroy();
+    }
+
     // Format date for display (just the year)
     const formatDate = (dateStr) => {
       return dateStr;
     };
 
-    new Chart(ctx, {
+    chartInstance = new Chart(ctx, {
       type: 'line',
       data: {
         labels: chartData.labels,
@@ -221,12 +224,19 @@ const dataJson = JSON.stringify({ labels, values });
               color: '#9f9f9f',
               maxRotation: 0,
               minRotation: 0,
-              autoSkip: false,
+              autoSkip: true,
+              autoSkipPadding: 20,
+              maxTicksLimit: window.innerWidth < 768 ? 8 : 15,
               callback: function(value, index) {
                 const label = this.getLabelForValue(value);
                 const year = parseInt(label);
-                // Only show labels for years divisible by 5
-                if (year % 5 === 0) {
+
+                // Responsive label frequency based on screen size
+                const isMobile = window.innerWidth < 768;
+                const divisor = isMobile ? 10 : 5; // Every 10 years on mobile, every 5 on desktop
+
+                // Only show labels for years divisible by divisor
+                if (year % divisor === 0) {
                   return formatDate(label);
                 }
                 return '';
@@ -253,6 +263,17 @@ const dataJson = JSON.stringify({ labels, values });
           }
         }
       }
+    });
+
+    // Add resize listener to update labels on screen size changes
+    let resizeTimeout;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+        if (chartInstance) {
+          chartInstance.update();
+        }
+      }, 250); // Debounce resize events
     });
   }
 
