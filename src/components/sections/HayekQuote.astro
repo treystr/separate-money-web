@@ -1,0 +1,81 @@
+---
+// Section 06: A Sly, Roundabout Way
+// Friedrich Hayek - The "Eureka" moment of the site
+
+const title = "A Sly, Roundabout Way"
+const description = "Friedrich Hayek, the Nobel Prize-winning economist, argued that the key to separating money from state control lies not in direct confrontation, but in establishing competing currencies that force governments to compete for citizens' trust. Through <span class=\"text-orange-500 font-semibold\">a sly roundabout way</span>, market forces can achieve what political battles cannot."
+const quote = "The concrete proposal for the near future... is that the countries of the Common Market... mutually bind themselves by formal treaty not to place any obstacles in the way of the free dealing throughout their territories in one another's currencies... This would mean in the first instance the abolition of any kind of exchange control or regulation of the movement of money between these countries..."
+const cite = "Friedrich A. Hayek"
+const role = "Denationalisation of Money (1976)"
+const videoTitle = "Friedrich Hayek: Decentralizing the Monetary System"
+const videoDescription = "Hayek's revolutionary ideas about competing currencies and the denationalization of money laid the intellectual groundwork for Bitcoin and other decentralized alternatives to government-controlled fiat money."
+const videoUrl = "https://www.youtube.com/embed/nswOYo0zUcI"
+---
+
+<!-- Section Content - Slot content for SectionWrapper -->
+<div class="flex flex-col h-full py-8 px-4 sm:px-6 lg:px-8">
+  <div class="flex flex-col justify-center flex-1 min-h-0 max-w-6xl mx-auto w-full">
+
+    <!-- Header -->
+    <header class="text-center mb-8 flex-shrink-0">
+      <h2 class="bs-h2">{ title }</h2>
+    </header>
+
+    <!-- Content -->
+    <div class="flex-1 min-h-0 flex flex-col">
+      <!-- Description -->
+      <div class="mb-8 text-center flex-shrink-0">
+        <p class="bs-body-text text-xl text-bs-foreground-dark max-w-4xl mx-auto" set:html={ description }></p>
+      </div>
+
+      <!-- Video and Quote Grid -->
+      <div class="grid lg:grid-cols-2 gap-8 items-start flex-1 min-h-0 overflow-y-auto">
+        <!-- Video -->
+        <div class="bg-bs-surface-0 border border-bs-surface-3 rounded-xl overflow-hidden flex flex-col min-h-0">
+          <div class="aspect-video flex-shrink-0">
+            <iframe
+              width="100%"
+              height="100%"
+              src={ videoUrl }
+              title={ videoTitle }
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+              loading="lazy">
+            </iframe>
+          </div>
+          <div class="p-6 flex-shrink-0">
+            <h3 class="bs-h3 text-bs-foreground-dark mb-2">{ videoTitle }</h3>
+            <p class="bs-body-text text-sm">
+              { videoDescription }
+            </p>
+          </div>
+        </div>
+
+        <!-- Quote -->
+        <div class="bg-gradient-to-br from-bs-surface-0 to-bs-surface-1 border border-bs-surface-3 rounded-xl p-8 flex flex-col min-h-0">
+          <blockquote class="flex flex-col flex-1 min-h-0 overflow-y-auto">
+            <div class="mb-6 flex-shrink-0">
+              <svg class="w-8 h-8 text-bs-foreground-light opacity-60" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M14,17H17L19,13V7H13V13H16M6,17H9L11,13V7H5V13H8L6,17Z" />
+              </svg>
+            </div>
+            <p class="font-display text-xl md:text-2xl text-bs-foreground-dark mb-6 leading-relaxed flex-1" set:html={ quote }></p>
+            <cite class="not-italic text-bs-foreground-light flex-shrink-0">
+              <span class="font-semibold text-bs-foreground-dark">{ cite }</span><br>
+              <span class="text-sm">{ role }</span>
+            </cite>
+          </blockquote>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<style>
+  /* Section-specific styles */
+  :global(.section-wrapper:has(#section-06)) {
+    background: linear-gradient(135deg, var(--color-cypherpunk-gray) 0%, var(--color-bitcoin-dark) 50%, var(--color-cypherpunk-gray) 100%);
+  }
+</style>

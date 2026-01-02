@@ -4,9 +4,25 @@
 :root {
   color-scheme: dark;
   scroll-behavior: smooth;
-  scroll-padding-top: 2em;
+}
+
+html {
+  height: 100%;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+  -webkit-scroll-snap-type: y mandatory;
+  scroll-padding-top: 5.5rem;
+  -webkit-scroll-padding-top: 5.5rem;
 }
 
 body {
   @apply bg-bs-surface-1 text-bs-foreground-light font-body selection:text-black selection:bg-amber-300;
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+main {
+  margin: 0;
+  padding: 0;
 }

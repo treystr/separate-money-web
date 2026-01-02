@@ -1,0 +1,74 @@
+---
+// Section 07: Privacy is Necessary for Freedom
+// The Cypherpunk Manifesto - Eric Hughes' vision
+
+const title = "Privacy is Necessary for Freedom"
+const description = "The Cypherpunk Manifesto, written by Eric Hughes in 1993, laid the foundation for the cypherpunk movement—a group of activists advocating for the widespread use of cryptography and privacy-enhancing technologies to achieve social and political change. It argued that privacy is not just a right but a fundamental necessity for freedom, and that cryptography provides the tools to defend it against surveillance and control."
+const link = "https://www.activism.net/cypherpunk/manifesto.html"
+const quote = "We must defend our own privacy if we expect to have any. We are defending our privacy with cryptography, with anonymous mail forwarding systems, with digital signatures, and with electronic money."
+const cite = "Eric Hughes"
+const role = "Cypherpunk Manifesto (1993)"
+---
+
+<!-- Section Content - Slot content for SectionWrapper -->
+<div class="flex flex-col h-full py-8 px-4 sm:px-6 lg:px-8">
+  <div class="flex flex-col justify-center flex-1 min-h-0 max-w-6xl mx-auto w-full">
+
+    <!-- Header -->
+    <header class="text-center mb-12">
+      <h2 class="bs-h2">{ title }</h2>
+    </header>
+
+    <!-- Content -->
+    <div class="max-w-4xl mx-auto">
+
+      <!-- Description -->
+      <div class="text-center mb-12">
+        <p class="bs-body-text text-xl text-bs-foreground-dark max-w-3xl mx-auto" set:html={ description }></p>
+      </div>
+
+      <!-- Manifesto Quote Block -->
+      <div class="bg-gradient-to-br from-bs-surface-0 via-bs-surface-1 to-bs-surface-0 border border-bs-surface-3 rounded-xl p-8 md:p-12 mb-8">
+        <blockquote class="text-center">
+          <!-- Quote Icon -->
+          <div class="mb-6">
+            <svg class="w-12 h-12 mx-auto text-bitcoin opacity-80" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M14,17H17L19,13V7H13V13H16M6,17H9L11,13V7H5V13H8L6,17Z" />
+            </svg>
+          </div>
+
+          <!-- Quote Text -->
+          <p class="font-display text-2xl md:text-3xl lg:text-4xl text-bs-foreground-dark mb-8 leading-tight font-light" set:html={ quote }></p>
+
+          <!-- Citation -->
+          <cite class="not-italic text-bs-foreground-light">
+            <span class="font-semibold text-bs-foreground-dark">{ cite }</span><br>
+            <span class="text-sm">{ role }</span>
+          </cite>
+        </blockquote>
+      </div>
+
+      <!-- Link -->
+      {link && (
+        <div class="text-center">
+          <a href={ link } target="_blank" rel="noopener" class="bs-btn">
+            Read the Full Manifesto
+          </a>
+        </div>
+      )}
+
+    </div>
+
+  </div>
+</div>
+
+<style>
+  /* Section-specific styles */
+  :global(.section-wrapper:has(#section-07)) {
+    background: linear-gradient(135deg, var(--color-cypherpunk-darker) 0%, var(--color-cypherpunk-dark) 30%, var(--color-cypherpunk-gray) 70%, var(--color-cypherpunk-dark) 100%);
+  }
+
+  .text-bitcoin {
+    color: var(--color-bitcoin);
+  }
+</style>

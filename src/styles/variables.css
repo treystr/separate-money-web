@@ -1,0 +1,80 @@
+/* Separate Money & State - Centralized CSS Variables */
+/* Propaganda-themed color palette inspired by Bitcoin orange, cypherpunk aesthetics */
+
+:root {
+  /* Bitcoin Core Colors */
+  --color-bitcoin: #f7931a;           /* Bitcoin orange */
+  --color-bitcoin-dark: #d48014;     /* Darker bitcoin orange */
+  --color-bitcoin-light: #ffb84d;    /* Lighter bitcoin orange */
+
+  /* Urgency & Alert Colors */
+  --color-urgency: #ff4444;           /* Red for urgency/warning */
+  --color-urgency-dark: #cc3333;     /* Darker red */
+  --color-urgency-light: #ff6666;    /* Lighter red */
+
+  /* Cypherpunk Dark Theme */
+  --color-cypherpunk-dark: #0a0a0a;  /* Deep black */
+  --color-cypherpunk-darker: #000000; /* Pure black */
+  --color-cypherpunk-gray: #1a1a1a;  /* Dark gray */
+  --color-cypherpunk-light: #2a2a2a; /* Light gray in dark theme */
+
+  /* Neutral Text Colors */
+  --color-text-primary: #ffffff;      /* White text */
+  --color-text-secondary: #cccccc;    /* Light gray text */
+  --color-text-muted: #888888;        /* Muted gray text */
+  --color-text-accent: #f7931a;       /* Bitcoin orange text */
+
+  /* Surface Colors */
+  --color-surface-primary: #0a0a0a;  /* Main background */
+  --color-surface-secondary: #1a1a1a; /* Secondary background */
+  --color-surface-tertiary: #2a2a2a; /* Tertiary background */
+  --color-surface-accent: #f7931a;   /* Accent surface */
+
+  /* Border Colors */
+  --color-border-light: rgba(255, 255, 255, 0.1);
+  --color-border-medium: rgba(255, 255, 255, 0.2);
+  --color-border-heavy: rgba(255, 255, 255, 0.3);
+
+  /* Typography */
+  --font-display: 'Inter Display', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'Monaco', 'Consolas', monospace;
+
+  /* Spacing Scale */
+  --space-xs: 0.25rem;    /* 4px */
+  --space-sm: 0.5rem;     /* 8px */
+  --space-md: 0.75rem;    /* 12px */
+  --space-lg: 1rem;       /* 16px */
+  --space-xl: 1.5rem;     /* 24px */
+  --space-2xl: 2rem;      /* 32px */
+  --space-3xl: 3rem;      /* 48px */
+  --space-4xl: 4rem;      /* 64px */
+  --space-5xl: 6rem;      /* 96px */
+
+  /* Border Radius */
+  --radius-sm: 0.25rem;   /* 4px */
+  --radius-md: 0.5rem;    /* 8px */
+  --radius-lg: 0.75rem;   /* 12px */
+  --radius-xl: 1rem;      /* 16px */
+  --radius-full: 9999px;  /* Fully rounded */
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.25);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.25);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.25);
+
+  /* Transitions */
+  --transition-fast: 150ms ease-out;
+  --transition-normal: 300ms ease-out;
+  --transition-slow: 500ms ease-out;
+
+  /* Z-Index Scale */
+  --z-dropdown: 1000;
+  --z-sticky: 1020;
+  --z-fixed: 1030;
+  --z-modal-backdrop: 1040;
+  --z-modal: 1050;
+  --z-popover: 1060;
+  --z-tooltip: 1070;
+}

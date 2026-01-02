@@ -1,0 +1,68 @@
+---
+// Section 05: A Generation's Inheritance: Debt, Division, Decay
+// Generational Impact - The cost of fiat inheritance
+
+const title = "A Generation's Inheritance: Debt, Division, Decay"
+const quote = "We didn't choose to be born into this broken system, but we do get to choose what comes next."
+const cite = "Jack Mallers"
+const role = "Bitcoin Entrepreneur"
+---
+
+<!-- Section Content - Slot content for SectionWrapper -->
+<div class="flex flex-col h-full py-8 px-4 sm:px-6 lg:px-8">
+  <div class="flex flex-col justify-center flex-1 min-h-0 max-w-6xl mx-auto w-full">
+
+    <!-- Header -->
+    <header class="text-center mb-12">
+      <h2 class="bs-h2">{ title }</h2>
+    </header>
+
+    <!-- Dramatic Quote Block -->
+    <div class="bg-gradient-to-r from-bs-surface-0 to-bs-surface-1 border border-bs-surface-3 rounded-xl p-8 md:p-12 mb-12">
+      <blockquote class="text-center">
+        <!-- Quote Icon -->
+        <div class="mb-6">
+          <svg class="w-12 h-12 mx-auto text-bs-foreground-light opacity-60" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M14,17H17L19,13V7H13V13H16M6,17H9L11,13V7H5V13H8L6,17Z" />
+          </svg>
+        </div>
+
+        <!-- Quote Text -->
+        <p class="font-display text-2xl md:text-4xl lg:text-5xl text-bs-foreground-dark mb-8 leading-tight">
+          "{ quote }"
+        </p>
+
+        <!-- Citation -->
+        <cite class="not-italic text-bs-foreground-light">
+          <span class="font-semibold text-bs-foreground-dark">{ cite }</span><br>
+          <span class="text-sm">{ role }</span>
+        </cite>
+      </blockquote>
+    </div>
+
+    <!-- Supporting Content -->
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="text-center">
+        <div class="text-3xl font-bold text-bs-foreground-dark mb-2">1971</div>
+        <p class="text-sm text-bs-foreground-light">Nixon severs dollar from gold, beginning the era of pure fiat currency</p>
+      </div>
+      <div class="text-center">
+        <div class="text-3xl font-bold text-bs-foreground-dark mb-2">2008</div>
+        <p class="text-sm text-bs-foreground-light">Financial crisis exposes the fragility of fiat-based systems</p>
+      </div>
+      <div class="text-center">
+        <div class="text-3xl font-bold text-bs-foreground-dark mb-2">2009</div>
+        <p class="text-sm text-bs-foreground-light">Bitcoin launches as the peaceful alternative to broken fiat money</p>
+      </div>
+    </div>
+
+  </div>
+  </div>
+</div>
+
+<style>
+  /* Section-specific styles */
+  :global(.section-wrapper:has(#section-05)) {
+    background: linear-gradient(135deg, var(--color-cypherpunk-dark) 0%, var(--color-urgency-dark) 50%, var(--color-cypherpunk-dark) 100%);
+  }
+</style>

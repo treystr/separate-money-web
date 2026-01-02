@@ -1,0 +1,45 @@
+---
+// Section 01: The HERO Entry
+// A high-contrast, dramatic image - "Separate Money & State"
+
+import Image from "astro/components/Image.astro"
+import hero_poster from "../../assets/theme-images/hero-poster.png"
+
+const title = "A PEACEFUL REVOLUTION"
+const content = "<p><strong>Your savings are being stolen.</strong> Since 1971, every dollar you earn loses value through government inflation—the silent tax that hits working families hardest. Housing, education, retirement—all becoming unaffordable while the money printer runs wild.</p><p>But there's a peaceful exit: <strong>Bitcoin</strong>. Fixed supply. No central authority. No manipulation. The ethical money that puts you back in control of your wealth and future.</p>"
+---
+
+<!-- Hero Content - Slot content for SectionWrapper -->
+<div class="flex flex-col justify-center items-center h-full py-4 px-4 sm:px-6 lg:px-8">
+  <div class="bs-container flex flex-col lg:flex-row items-center pt-4 pb-8 lg:pt-0 lg:pb-0 w-full max-w-none">
+
+    <!-- Content -->
+    <div class="flex flex-col gap-6 lg:max-w-lg w-full pt-4 pb-8 lg:pt-8 lg:pb-16 flex-shrink-0">
+
+      <!-- Title -->
+      <h1 class="bs-h1" set:html={ title } />
+
+      <!-- Content -->
+      <div class="bs-body-text xl:text-xl flex flex-col gap-4 [&_p]:last:text-bs-foreground-dark" set:html={ content } />
+
+      <!-- CTA -->
+      <!-- <button type="button" class="bs-btn self-start bs-mt-sm" onclick="demo.showModal()">
+        { settings.demo.cta }
+      </button> -->
+
+    </div>
+
+    <!-- Image -->
+    <figure class="flex place-content-center lg:flex-1 -mt-12 lg:mt-0 flex-shrink-0">
+      <Image src={ hero_poster } format="avif" quality="high" alt="Screens showing phone, tablet and desktop views of our website" loading="eager" class="object-contain max-h-[60vh] lg:max-h-[75vh] w-auto" />
+    </figure>
+
+  </div>
+</div>
+
+<style>
+  /* Section-specific styles */
+  :global(.section-wrapper:has(#section-01)) {
+    background: linear-gradient(135deg, var(--color-cypherpunk-dark) 0%, var(--color-cypherpunk-gray) 100%);
+  }
+</style>

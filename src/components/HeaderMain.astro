@@ -6,7 +6,7 @@ const { settings } = Astro.props
 
 ---
 
-<header class="wrapper bg-loop font-semibold">
+<header class="fixed top-0 left-0 right-0 z-50 wrapper bg-loop font-semibold header-scroll">
 
   <!-- Wrapper -->
   <div class="bs-container py-6 flex justify-between items-center">
@@ -42,3 +42,7 @@ const { settings } = Astro.props
   </div>
 
 </header>
+
+<script>
+  import "../assets/js/header-scroll.js"
+</script>

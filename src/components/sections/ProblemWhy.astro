@@ -1,0 +1,78 @@
+---
+// Section 04: What's the Problem & Why
+// The Hook (Joe Bryan) - Embed the "What's the Problem" video
+
+const title = "What's the Problem & Why?"
+
+const videos = [
+  {
+    "id": "whats-the-problem",
+    "title": "What's the Problem?",
+    "description": "The world feels like it's heading in the wrong direction—rising costs, declining standards, and growing instability. The root cause? Our money is broken.",
+    "video_url": "https://www.youtube.com/embed/YtFOxNbmD38",
+    "link_url": "https://www.youtube.com/watch?v=YtFOxNbmD38",
+    "link_text": "Watch on YouTube"
+  },
+  {
+    "id": "broken-money",
+    "title": "Our Money is Broken",
+    "description": "Why Our Financial System is Failing Us and How We Can Make it Better",
+    "video_url": "https://www.youtube-nocookie.com/embed/jk_HWmmwiAs",
+    "link_url": "https://www.youtube.com/watch?v=jk_HWmmwiAs",
+    "link_text": "Watch on YouTube"
+  }
+]
+---
+
+<!-- Section Content - Slot content for SectionWrapper -->
+<div class="flex flex-col h-full py-8 px-4 sm:px-6 lg:px-8">
+  <div class="flex flex-col justify-center flex-1 min-h-0 max-w-6xl mx-auto w-full">
+
+    <!-- Header -->
+    <header class="text-center mb-12">
+      <h2 class="bs-h2">{ title }</h2>
+    </header>
+
+    <!-- Videos Grid -->
+    <div class="grid md:grid-cols-2 gap-8">
+
+      {videos.map(video =>
+
+        <article class="bg-bs-surface-0 border border-bs-surface-3 rounded-xl overflow-hidden">
+          <div class="aspect-video">
+            <iframe
+              width="100%"
+              height="100%"
+              src={video.video_url}
+              title={`${video.title} - ${video.description.substring(0, 50)}...`}
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+              loading="lazy">
+            </iframe>
+          </div>
+          <div class="p-6">
+            <h3 class="bs-h3 text-bs-foreground-dark mb-2">{video.title}</h3>
+            <p class="bs-body-text text-sm mb-4">
+              {video.description}
+            </p>
+            {video.link_url && (
+              <a href={video.link_url} target="_blank" rel="noopener" class="bs-btn text-sm">{video.link_text}</a>
+            )}
+          </div>
+        </article>
+
+      )}
+
+    </div>
+
+  </div>
+  </div>
+</div>
+
+<style>
+  /* Section-specific styles */
+  :global(.section-wrapper:has(#section-04)) {
+    background: linear-gradient(135deg, var(--color-cypherpunk-gray) 0%, var(--color-cypherpunk-dark) 100%);
+  }
+</style>

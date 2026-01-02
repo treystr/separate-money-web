@@ -18,3 +18,12 @@
 .bs-mt-sm {
   @apply mt-6 lg:mt-8
 }
+
+/* Header Scroll Behavior */
+.header-scroll {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.header-hidden {
+  transform: translateY(-100%);
+}

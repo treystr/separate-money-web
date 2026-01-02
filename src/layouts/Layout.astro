@@ -19,6 +19,9 @@ import HeaderMain from "../components/HeaderMain.astro"
 
 const { title, description } = Astro.props
 
+// Only show footer in layout on non-index pages (index has its own footer section)
+const isIndexPage = Astro.url.pathname === '/' || Astro.url.pathname === '/index.html'
+
 ---
 
 <html lang="en">
@@ -64,8 +67,8 @@ const { title, description } = Astro.props
       <slot />
     </main>
 
-    <!-- Footer -->
-    <FooterMain />
+    <!-- Footer (only on non-index pages) -->
+    {!isIndexPage && <FooterMain />}
 
     <!-- Demo dialog modal -->
     <DialogModal id="demo" content={ global_settings.demo }>

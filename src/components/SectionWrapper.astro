@@ -1,0 +1,139 @@
+---
+// SectionWrapper.astro - Global scaffolding for all narrative sections
+// Handles 100vh height, scroll-snap-align, and intersection observer logic
+
+export interface Props {
+  transitionType?: 'fade' | 'slide-up' | 'glitch' | 'zoom-in' | 'none';
+  sectionId?: string;
+}
+
+const { transitionType = 'fade', sectionId } = Astro.props;
+---
+
+<section
+  id={sectionId}
+  class={`section-wrapper snap-start relative overflow-hidden ${transitionType !== 'none' ? 'opacity-0 translate-y-8' : ''}`}
+  data-transition={transitionType}
+>
+  <slot />
+
+  <style>
+    .section-wrapper {
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+      -webkit-scroll-snap-align: start;
+      -webkit-scroll-snap-stop: always;
+      min-height: 100vh;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Content container that constrains content within viewport */
+    .section-wrapper > :first-child {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-height: 0; /* Allow flex item to shrink below content size */
+      max-height: 100vh;
+      overflow-y: auto; /* Allow scrolling on mobile if content exceeds viewport */
+    }
+
+    /* On mobile, allow sections to scroll if content is too tall */
+    @media (max-width: 767px) {
+      .section-wrapper {
+        min-height: 100vh;
+        height: 100vh;
+      }
+      .section-wrapper > :first-child {
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        max-height: 100vh;
+      }
+    }
+
+    /* On desktop, strictly contain content */
+    @media (min-width: 768px) {
+      .section-wrapper > :first-child {
+        overflow: hidden;
+      }
+    }
+
+    /* Transition states */
+    .section-wrapper.visible {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+
+    .section-wrapper[data-transition="slide-up"].visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .section-wrapper[data-transition="glitch"].visible {
+      opacity: 1;
+      transform: translateY(0);
+      animation: glitch 0.3s ease-out;
+    }
+
+    .section-wrapper[data-transition="zoom-in"].visible {
+      opacity: 1;
+      transform: scale(1);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+
+    .section-wrapper[data-transition="zoom-in"] {
+      transform: scale(0.95);
+    }
+
+    @keyframes glitch {
+      0% { transform: translate(0); }
+      20% { transform: translate(-2px, 2px); }
+      40% { transform: translate(-2px, -2px); }
+      60% { transform: translate(2px, 2px); }
+      80% { transform: translate(2px, -2px); }
+      100% { transform: translate(0); }
+    }
+  </style>
+
+  <script>
+    // Intersection Observer for reveal animations
+    class SectionObserver {
+      constructor() {
+        this.observer = null;
+        this.init();
+      }
+
+      init() {
+        const options = {
+          root: null,
+          rootMargin: '0px 0px -20% 0px',
+          threshold: 0.1
+        };
+
+        this.observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            // Only trigger visibility once - sections stay visible after being seen
+            if (entry.isIntersecting && !entry.target.classList.contains('visible')) {
+              entry.target.classList.add('visible');
+            }
+          });
+        }, options);
+
+        // Observe all section wrappers
+        document.querySelectorAll('.section-wrapper').forEach(section => {
+          this.observer.observe(section);
+        });
+      }
+    }
+
+    // Initialize when DOM is ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => new SectionObserver());
+    } else {
+      new SectionObserver();
+    }
+  </script>
+</section>

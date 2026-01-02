@@ -1,0 +1,93 @@
+---
+// Section 09: Spread the Word
+// Help others understand the importance of separating money from state control
+
+import Image from "astro/components/Image.astro"
+
+// Import poster images
+const posterModules = import.meta.glob("../../assets/posters/*.jpg", { eager: true })
+const posters = Object.entries(posterModules).map(([path, module]) => {
+  const filename = path.split('/').pop()?.replace('.jpg', '') || ''
+  return {
+    name: filename,
+    image: (module as any).default
+  }
+})
+
+// Poster data
+const posterData = {
+  "title": "Spread the Word",
+  "content": "<strong>Help others understand the importance of separating money from state control.</strong> Download professional posters and share the Bitcoin message in your community. Each poster is designed for high-quality printing and comes with PDF versions optimized for professional print shops.",
+  "cta": "See our Propaganda",
+  "image": "/poster1.jpg",
+  "image_alt": "Bitcoin education poster"
+}
+
+const posterImage = posters.find(p => p.name === posterData.image?.replace('/', ''))
+
+---
+
+<!-- Section Content - Slot content for SectionWrapper -->
+<div class="flex flex-col h-full py-8 px-4 sm:px-6 lg:px-8">
+  <div class="flex flex-col justify-center flex-1 min-h-0 max-w-6xl mx-auto w-full">
+
+    <!-- Two-column layout: Poster image and content side-by-side -->
+    <div class="grid lg:grid-cols-4 gap-8 lg:gap-12 items-center max-w-5xl mx-auto">
+
+      <!-- Poster Image (takes up 1/4 of the width on large screens) -->
+      <div class="lg:col-span-1">
+        <div class="bg-bs-surface-0 border border-bs-surface-3 rounded-xl overflow-hidden shadow-lg">
+          <div class="aspect-[3/4] overflow-hidden">
+            {posterImage ? (
+              <Image
+                src={posterImage.image}
+                alt={posterData.image_alt || "Bitcoin education poster"}
+                class="w-full h-full object-cover"
+                loading="lazy"
+                width={600}
+                height={800}
+                format="avif"
+              />
+            ) : (
+              <img
+                src={posterData.image}
+                alt={posterData.image_alt || "Bitcoin education poster"}
+                class="w-full h-full object-cover"
+                loading="lazy"
+              />
+            )}
+          </div>
+        </div>
+      </div>
+
+      <!-- Content (takes up 3/4 of the width on large screens) -->
+      <div class="lg:col-span-3 space-y-6">
+        <!-- Title -->
+        <h2 class="bs-h2" set:html={posterData.title} />
+
+        <!-- Description -->
+        <div class="bs-body-text text-pretty max-w-2xl" set:html={posterData.content} />
+
+        <!-- Call to Action -->
+        <div class="pt-4">
+          <a href="/posters" class="bs-btn inline-flex items-center gap-2">
+            {posterData.cta}
+            <!-- Arrow icon -->
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<style>
+  /* Section-specific styles */
+  :global(.section-wrapper:has(#section-09)) {
+    background: linear-gradient(135deg, var(--color-cypherpunk-dark) 0%, var(--color-bitcoin) 50%, var(--color-cypherpunk-dark) 100%);
+  }
+</style>
