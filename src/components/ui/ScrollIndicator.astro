@@ -364,6 +364,11 @@ const arcs = [
         arc.classList.add('visible');
       });
 
+      // Show all dots immediately so users can jump to any section
+      this.dots.forEach(dot => {
+        dot.classList.add('visible');
+      });
+
       // Don't show indicator initially - it will show when scrolling to section-01
       // Set up scroll listener
       window.addEventListener('scroll', () => this.handleScroll(), { passive: true });
@@ -487,18 +492,7 @@ const arcs = [
           dot.classList.add('passed');
         }
 
-        // Show dots up to current section + lookahead sections with staggered animation
-        if (sectionNum <= activeSection + this.config.lookaheadSections) {
-          // Use requestAnimationFrame for smoother animations
-          requestAnimationFrame(() => {
-            setTimeout(() => {
-              dot.classList.add('visible');
-            }, Math.max(0, (sectionNum - activeSection) * this.config.staggerDelay));
-          });
-        } else {
-          // Hide dots that are too far ahead
-          dot.classList.remove('visible');
-        }
+        // All dots are always visible (set in init()), so we only update active/passed states
       });
     }
 

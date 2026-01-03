@@ -27,7 +27,19 @@ const resourceText = "Learn About the Cantillon Effect"
     <!-- Left Side: Title and Content -->
     <div class="flex flex-col justify-center">
       <h2 class="bs-h2 mb-6">{ title }</h2>
-      <div class="bs-body-text text-lg text-bs-foreground-dark space-y-4">
+      
+      <!-- Mobile: Condensed Text -->
+      <div class="bs-body-text text-lg text-bs-foreground-dark lg:hidden">
+        <p>
+          New money reaches banks, corporations, and government first — they spend it before prices rise. 
+          By the time it trickles down to you through wages or benefits, everything already costs more. 
+          This is the Cantillon Effect: those closest to the money printer benefit, while those furthest 
+          away lose purchasing power. Your savings are silently eroded as new money flows to the top first.
+        </p>
+      </div>
+
+      <!-- Desktop: Full Text -->
+      <div class="bs-body-text text-lg text-bs-foreground-dark space-y-4 hidden lg:block">
         <p>
           New money reaches banks, corporations, and government first. They spend it before prices rise, 
           purchasing assets, real estate, and goods at current market rates. By the time this new money 
