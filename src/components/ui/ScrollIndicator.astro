@@ -332,7 +332,13 @@ const arcs = [
       this.indicator = document.getElementById('scroll-indicator');
       this.arcs = document.querySelectorAll('.scroll-indicator__arc');
       this.dots = document.querySelectorAll('.scroll-indicator__dot');
-      this.sections = document.querySelectorAll('.section-wrapper');
+      // Filter out hero section - only include sections with IDs starting with "section-"
+      const allSections = Array.from(document.querySelectorAll('.section-wrapper'));
+      this.sections = allSections.filter(section => {
+        const id = section.id;
+        return id && id.startsWith('section-');
+      });
+      this.heroSection = document.getElementById('hero-section');
       this.currentSection = 1;
       this.config = {
         indicatorShowDelay: indicatorShowDelay,
@@ -358,11 +364,7 @@ const arcs = [
         arc.classList.add('visible');
       });
 
-      // Show indicator after a short delay
-      setTimeout(() => {
-        this.indicator?.classList.add('visible');
-      }, this.config.indicatorShowDelay);
-
+      // Don't show indicator initially - it will show when scrolling to section-01
       // Set up scroll listener
       window.addEventListener('scroll', () => this.handleScroll(), { passive: true });
       
@@ -418,6 +420,19 @@ const arcs = [
     }
 
     handleScroll() {
+      // Check if we're on the hero section (hero is visible in viewport)
+      const heroRect = this.heroSection?.getBoundingClientRect();
+      const isOnHero = heroRect && heroRect.bottom > 0 && heroRect.top < window.innerHeight;
+      
+      // Hide indicator if on hero section, show when scrolling to first section
+      if (isOnHero) {
+        this.indicator?.classList.remove('visible');
+        return; // Don't update section tracking while on hero
+      } else {
+        // Show indicator when scrolling away from hero
+        this.indicator?.classList.add('visible');
+      }
+
       const viewportCenter = window.innerHeight / 2;
       let activeSection = 1;
       let closestDistance = Infinity;

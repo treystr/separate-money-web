@@ -3,6 +3,9 @@
 import Layout from "../layouts/Layout.astro"
 import SectionWrapper from "../components/SectionWrapper.astro"
 
+// Hero Section
+import HeroSection from "../components/sections/HeroSection.astro"
+
 // Import new section components matching the storyline
 // Arc I: The Struggle (Sections 1-6)
 import YoureNotCrazy from "../components/sections/YoureNotCrazy.astro"
@@ -47,6 +50,11 @@ import global_settings from "../data/global_settings.json"
 ---
 
 <Layout title={ global_settings.title }>
+
+  <!-- Hero Section -->
+  <SectionWrapper transitionType="none" sectionId="hero-section">
+    <HeroSection />
+  </SectionWrapper>
 
   <!-- Arc I: The Struggle -->
   

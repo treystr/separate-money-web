@@ -1,0 +1,70 @@
+---
+// Hero Section: Separate Money and State
+// This is the landing section that appears on page load
+
+const headline = "Separate Money and State"
+const subheadline = "Just like church and state, money works best when it's free from central control."
+const bodyParagraph = "History teaches us the value of checks and balances. Separating church and state prevents any single authority from dominating personal lives. The same principle could transform money: when governments have sole control over the money supply, it opens the door to expansive monetary policies that support unchecked spending and institutional bailouts, often passing hidden burdens to everyone else. This site builds the case that these dynamics contribute to many familiar challenges today and shows how separating money from state control can restore fairness, safeguard your savings, and create real opportunities for individual prosperity. By the end, you'll discover how you can quietly opt out of this system and step into a fairer money that puts control back in your hands."
+---
+
+<!-- Hero Section Content -->
+<div class="flex flex-col justify-center items-center h-full py-8 px-4 sm:px-6 lg:px-8 relative">
+  <div class="max-w-4xl mx-auto text-center">
+    <h1 class="bs-h1 mb-4">{ headline }</h1>
+    <p class="bs-h2 mb-8 text-bs-foreground-dark">{ subheadline }</p>
+    <p class="bs-body-text text-lg text-bs-foreground-dark leading-relaxed">{ bodyParagraph }</p>
+  </div>
+  
+  <!-- Scroll hint indicator -->
+  <div class="scroll-hint absolute bottom-8 left-1/2 transform -translate-x-1/2">
+    <div class="scroll-hint__arrow"></div>
+  </div>
+</div>
+
+<style>
+  /* Hero section background */
+  :global(.section-wrapper:has(#hero-section)) {
+    background: linear-gradient(135deg, var(--color-cypherpunk-dark) 0%, var(--color-cypherpunk-gray) 100%);
+  }
+
+  /* Scroll hint animation */
+  .scroll-hint {
+    opacity: 0.7;
+    animation: scrollHintPulse 2s ease-in-out infinite;
+  }
+
+  .scroll-hint__arrow {
+    width: 24px;
+    height: 24px;
+    border-right: 2px solid var(--color-bitcoin, #f7931a);
+    border-bottom: 2px solid var(--color-bitcoin, #f7931a);
+    transform: rotate(45deg);
+    animation: scrollHintBounce 2s ease-in-out infinite;
+  }
+
+  @keyframes scrollHintPulse {
+    0%, 100% {
+      opacity: 0.7;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes scrollHintBounce {
+    0%, 100% {
+      transform: translateY(0) rotate(45deg);
+    }
+    50% {
+      transform: translateY(8px) rotate(45deg);
+    }
+  }
+
+  /* Hide scroll hint on mobile after first scroll */
+  @media (max-width: 767px) {
+    .scroll-hint {
+      display: none;
+    }
+  }
+</style>
+
