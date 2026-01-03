@@ -353,6 +353,11 @@ const arcs = [
       // Dynamically update dot titles from DOM (auto-updates when sections change)
       this.updateDotTitles();
 
+      // Show all arcs immediately (they'll be visible but labels will be dimmed until active)
+      this.arcs.forEach(arc => {
+        arc.classList.add('visible');
+      });
+
       // Show indicator after a short delay
       setTimeout(() => {
         this.indicator?.classList.add('visible');
@@ -486,17 +491,10 @@ const arcs = [
       this.arcs.forEach((arc, index) => {
         const arcNum = index + 1;
         const arcConfig = this.config.arcs[index];
-        let shouldShow = false;
-        let isActive = false;
-
-        // Show arc if we've reached its start section
-        shouldShow = activeSection >= arcConfig.start;
+        
         // Arc is active if current section is within its range
-        isActive = activeSection >= arcConfig.start && activeSection <= arcConfig.end;
-
-        if (shouldShow) {
-          arc.classList.add('visible');
-        }
+        // This controls the label opacity (active = full opacity, inactive = dimmed)
+        const isActive = activeSection >= arcConfig.start && activeSection <= arcConfig.end;
 
         if (isActive) {
           arc.classList.add('active');
