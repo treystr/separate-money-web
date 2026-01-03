@@ -17,7 +17,7 @@ let htmlContent = '';
 try {
   // Use import.meta.glob to load markdown files
   // The pattern matches files in src/content/ directory
-  const markdownModules = import.meta.glob('../../content/**/*.md', { eager: true, as: 'raw' });
+  const markdownModules = import.meta.glob('../../content/**/*.md', { eager: true, query: '?raw', import: 'default' });
   
   // Try both with and without leading slash, and handle subdirectories
   const possiblePaths = [

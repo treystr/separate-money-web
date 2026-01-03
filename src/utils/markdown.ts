@@ -11,7 +11,7 @@ import { marked } from 'marked';
  */
 export async function loadMarkdownFile(filename: string): Promise<string | null> {
   try {
-    const markdownModules = import.meta.glob('../../content/**/*.md', { eager: false, as: 'raw' });
+    const markdownModules = import.meta.glob('../../content/**/*.md', { eager: false, query: '?raw', import: 'default' });
     const filePath = `../../content/${filename}`;
     
     if (markdownModules[filePath]) {
