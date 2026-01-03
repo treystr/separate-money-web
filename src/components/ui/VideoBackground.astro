@@ -1,0 +1,114 @@
+---
+// VideoBackground.astro - Reusable video background component
+// Supports transparent WebM videos with MP4 fallback
+
+export interface Props {
+  webmSrc?: string;
+  mp4Src: string;
+  poster?: string; // Fallback image for when video hasn't loaded
+  autoplay?: boolean;
+  loop?: boolean;
+  muted?: boolean;
+  playsInline?: boolean;
+  opacity?: number; // 0-1, default 1
+  className?: string;
+}
+
+const {
+  webmSrc,
+  mp4Src,
+  poster,
+  autoplay = true,
+  loop = true,
+  muted = true,
+  playsInline = true,
+  opacity = 1,
+  className = ""
+} = Astro.props;
+---
+
+<div class={`video-background ${className}`} style={`opacity: ${opacity};`}>
+  <video
+    class="video-background__video"
+    autoplay={autoplay}
+    loop={loop}
+    muted={muted}
+    playsinline={playsInline}
+    preload="metadata"
+    poster={poster}
+    aria-hidden="true"
+  >
+    {webmSrc && <source src={webmSrc} type="video/webm" />}
+    <source src={mp4Src} type="video/mp4" />
+  </video>
+</div>
+
+<style>
+  .video-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .video-background__video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  /* Ensure section wrapper can contain the video */
+  :global(.section-wrapper:has(.video-background)) {
+    position: relative;
+  }
+</style>
+
+<script is:inline>
+  // Lazy load and manage video playback based on visibility
+  (function() {
+    function initVideoBackgrounds() {
+      const videoElements = document.querySelectorAll('.video-background__video');
+      
+      if (videoElements.length === 0) return;
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          const video = entry.target;
+          if (entry.isIntersecting) {
+            // Load and play video when section becomes visible
+            if (video.readyState === 0) {
+              video.load();
+            }
+            const playPromise = video.play();
+            if (playPromise !== undefined) {
+              playPromise.catch(() => {
+                // Autoplay blocked - this is fine, user interaction will play it
+                console.debug('Video autoplay blocked (expected on some browsers)');
+              });
+            }
+          } else {
+            // Pause when not visible to save resources
+            video.pause();
+          }
+        });
+      }, {
+        rootMargin: '100px' // Start loading slightly before visible
+      });
+
+      videoElements.forEach(video => observer.observe(video));
+    }
+
+    // Initialize when DOM is ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initVideoBackgrounds);
+    } else {
+      initVideoBackgrounds();
+    }
+  })();
+</script>
+

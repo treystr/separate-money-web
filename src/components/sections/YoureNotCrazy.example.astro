@@ -1,14 +1,12 @@
 ---
-// Section 01: You're Not Crazy — Life Is Getting Harder
-// Arc I: The Struggle
+// Example: How to add MarkdownModal to a section component
+// This shows how to integrate the modal into YoureNotCrazy.astro
 
 import VideoBackground from "../ui/VideoBackground.astro";
-import ReadMoreButton from "../ui/ReadMoreButton.astro";
 import MarkdownModal from "../ui/MarkdownModal.astro";
 
 const title = "You're Not Crazy — Life Is Getting Harder"
 const content = "You work longer hours than your parents did, yet housing, education, healthcare, and even groceries feel further out of reach. You're not imagining it, and you're not alone. Something fundamental has changed."
-const modalId = "section-01-modal";
 ---
 
 <!-- Video Background -->
@@ -21,19 +19,21 @@ const modalId = "section-01-modal";
 <div class="flex flex-col justify-center items-center h-full py-8 px-4 sm:px-6 lg:px-8 relative z-10">
   <div class="max-w-4xl mx-auto text-center">
     <h2 class="bs-h2 mb-6">{ title }</h2>
-    <p class="bs-body-text text-xl text-bs-foreground-dark">{ content }</p>
+    <p class="bs-body-text text-xl text-bs-foreground-dark mb-6">{ content }</p>
+    
+    <!-- Add a "Read More" button that opens the modal -->
+    <button 
+      onclick="document.getElementById('section-01-modal').showModal()"
+      class="bs-btn"
+    >
+      Read More
+    </button>
   </div>
-  
-  <!-- Read More Button - positioned in bottom left -->
-  <ReadMoreButton 
-    modalId={modalId}
-    ariaLabel={`Read more about ${title}`}
-  />
 </div>
 
-<!-- Markdown Modal -->
+<!-- Include the modal component -->
 <MarkdownModal 
-  id={modalId}
+  id="section-01-modal"
   title={title}
   markdownFile="section-01.md"
 />

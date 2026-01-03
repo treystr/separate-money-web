@@ -1,0 +1,412 @@
+---
+import { marked } from 'marked';
+import type { ComponentProps } from 'astro/types';
+
+interface Props {
+  id: string;
+  title: string;
+  markdownFile: string;
+}
+
+const { id, title, markdownFile } = Astro.props;
+
+// Load markdown file content
+let markdownContent = '';
+let htmlContent = '';
+
+try {
+  // Use import.meta.glob to load markdown files
+  // The pattern matches files in src/content/ directory
+  const markdownModules = import.meta.glob('../../content/**/*.md', { eager: true, as: 'raw' });
+  
+  // Try both with and without leading slash, and handle subdirectories
+  const possiblePaths = [
+    `../../content/${markdownFile}`,
+    `../../content/${markdownFile.replace(/^\//, '')}`,
+  ];
+  
+  let found = false;
+  for (const filePath of possiblePaths) {
+    if (markdownModules[filePath]) {
+      markdownContent = markdownModules[filePath] as string;
+      found = true;
+      break;
+    }
+  }
+  
+  // Also try to find by filename if exact path doesn't work
+  if (!found) {
+    for (const [path, content] of Object.entries(markdownModules)) {
+      if (path.endsWith(markdownFile) || path.includes(markdownFile)) {
+        markdownContent = content as string;
+        found = true;
+        break;
+      }
+    }
+  }
+  
+  if (found && markdownContent) {
+    // Configure marked options
+    marked.setOptions({
+      breaks: true,
+      gfm: true,
+    });
+    htmlContent = marked(markdownContent);
+  } else {
+    console.warn(`Markdown file not found: ${markdownFile}. Available files:`, Object.keys(markdownModules));
+    htmlContent = '<p>Content not available. Please check that the markdown file exists in the <code>src/content</code> directory.</p>';
+  }
+} catch (error) {
+  console.error(`Error loading markdown file ${markdownFile}:`, error);
+  htmlContent = '<p>Error loading content.</p>';
+}
+---
+
+<dialog 
+  id={id} 
+  class="markdown-modal"
+  data-modal-id={id}
+>
+  <div class="markdown-modal__container">
+    <!-- Header -->
+    <div class="markdown-modal__header">
+      <h2 class="markdown-modal__title">{title}</h2>
+      <button 
+        class="markdown-modal__close"
+        onclick="this.closest('dialog').close()"
+        aria-label="Close modal"
+      >
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Content -->
+    <div class="markdown-modal__content">
+      <div class="markdown-modal__body" set:html={htmlContent}></div>
+    </div>
+  </div>
+</dialog>
+
+<style>
+  .markdown-modal {
+    position: fixed;
+    inset: 0;
+    z-index: var(--z-modal);
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: transparent;
+    max-width: none;
+    max-height: none;
+    width: 100%;
+    height: 100%;
+  }
+
+  .markdown-modal::backdrop {
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(8px);
+  }
+
+  .markdown-modal__container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-xl);
+    max-width: 100%;
+    max-height: 100%;
+  }
+
+  .markdown-modal__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-lg) var(--space-xl);
+    background: var(--color-bs-surface-0);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    flex-shrink: 0;
+  }
+
+  .markdown-modal__title {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--color-bs-foreground-light);
+    margin: 0;
+  }
+
+  .markdown-modal__close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: 0;
+    background: transparent;
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-md);
+    color: var(--color-bs-foreground-light);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+  }
+
+  .markdown-modal__close:hover {
+    background: var(--color-bs-surface-2);
+    border-color: var(--color-border-medium);
+  }
+
+  .markdown-modal__close:active {
+    transform: scale(0.95);
+  }
+
+  .markdown-modal__content {
+    flex: 1;
+    overflow: hidden;
+    background: var(--color-bs-surface-0);
+    border: 1px solid var(--color-border-light);
+    border-top: none;
+    border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+  }
+
+  .markdown-modal__body {
+    flex: 1;
+    overflow-y: auto;
+    padding: var(--space-xl);
+    color: var(--color-bs-foreground-dark);
+    line-height: 1.7;
+  }
+
+  /* Markdown content styling */
+  .markdown-modal__body :global(h1),
+  .markdown-modal__body :global(h2),
+  .markdown-modal__body :global(h3),
+  .markdown-modal__body :global(h4),
+  .markdown-modal__body :global(h5),
+  .markdown-modal__body :global(h6) {
+    font-family: var(--font-display);
+    color: var(--color-bs-foreground-light);
+    margin-top: var(--space-2xl);
+    margin-bottom: var(--space-lg);
+    font-weight: 600;
+  }
+
+  .markdown-modal__body :global(h1) {
+    font-size: 2rem;
+    margin-top: 0;
+  }
+
+  .markdown-modal__body :global(h2) {
+    font-size: 1.75rem;
+  }
+
+  .markdown-modal__body :global(h3) {
+    font-size: 1.5rem;
+  }
+
+  .markdown-modal__body :global(h4) {
+    font-size: 1.25rem;
+  }
+
+  .markdown-modal__body :global(p) {
+    margin-bottom: var(--space-lg);
+    color: var(--color-bs-foreground-dark);
+  }
+
+  .markdown-modal__body :global(strong) {
+    color: var(--color-bs-foreground-light);
+    font-weight: 600;
+  }
+
+  .markdown-modal__body :global(em) {
+    font-style: italic;
+  }
+
+  .markdown-modal__body :global(a) {
+    color: var(--color-bitcoin);
+    text-decoration: underline;
+    transition: color var(--transition-fast);
+  }
+
+  .markdown-modal__body :global(a:hover) {
+    color: var(--color-bitcoin-light);
+  }
+
+  .markdown-modal__body :global(ul),
+  .markdown-modal__body :global(ol) {
+    margin-bottom: var(--space-lg);
+    padding-left: var(--space-2xl);
+  }
+
+  .markdown-modal__body :global(li) {
+    margin-bottom: var(--space-sm);
+    color: var(--color-bs-foreground-dark);
+  }
+
+  .markdown-modal__body :global(blockquote) {
+    border-left: 3px solid var(--color-bitcoin);
+    padding-left: var(--space-lg);
+    margin: var(--space-xl) 0;
+    color: var(--color-bs-foreground-dark);
+    font-style: italic;
+  }
+
+  .markdown-modal__body :global(code) {
+    background: var(--color-bs-surface-2);
+    padding: 0.125rem 0.375rem;
+    border-radius: var(--radius-sm);
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    color: var(--color-bitcoin-light);
+  }
+
+  .markdown-modal__body :global(pre) {
+    background: var(--color-bs-surface-1);
+    padding: var(--space-lg);
+    border-radius: var(--radius-md);
+    overflow-x: auto;
+    margin: var(--space-lg) 0;
+  }
+
+  .markdown-modal__body :global(pre code) {
+    background: transparent;
+    padding: 0;
+    color: var(--color-bs-foreground-light);
+  }
+
+  .markdown-modal__body :global(hr) {
+    border: none;
+    border-top: 1px solid var(--color-border-light);
+    margin: var(--space-2xl) 0;
+  }
+
+  .markdown-modal__body :global(img) {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--radius-md);
+    margin: var(--space-lg) 0;
+  }
+
+  .markdown-modal__body :global(table) {
+    width: 100%;
+    border-collapse: collapse;
+    margin: var(--space-lg) 0;
+  }
+
+  .markdown-modal__body :global(th),
+  .markdown-modal__body :global(td) {
+    padding: var(--space-sm) var(--space-md);
+    border: 1px solid var(--color-border-light);
+    text-align: left;
+  }
+
+  .markdown-modal__body :global(th) {
+    background: var(--color-bs-surface-1);
+    color: var(--color-bs-foreground-light);
+    font-weight: 600;
+  }
+
+  /* Scrollbar styling */
+  .markdown-modal__body::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .markdown-modal__body::-webkit-scrollbar-track {
+    background: var(--color-bs-surface-1);
+  }
+
+  .markdown-modal__body::-webkit-scrollbar-thumb {
+    background: var(--color-bs-surface-3);
+    border-radius: var(--radius-sm);
+  }
+
+  .markdown-modal__body::-webkit-scrollbar-thumb:hover {
+    background: var(--color-bitcoin);
+  }
+
+  /* Animation */
+  @media (prefers-reduced-motion: no-preference) {
+    .markdown-modal {
+      opacity: 0;
+      transform: scale(0.95);
+      transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+    }
+
+    .markdown-modal[open] {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .markdown-modal__container {
+      animation: modalSlideIn 0.3s ease-out;
+    }
+  }
+
+  @keyframes modalSlideIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Prevent body scroll when modal is open */
+  html:has(.markdown-modal[open]) {
+    overflow: hidden;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .markdown-modal__container {
+      padding: var(--space-md);
+    }
+
+    .markdown-modal__header {
+      padding: var(--space-md) var(--space-lg);
+    }
+
+    .markdown-modal__title {
+      font-size: 1.25rem;
+    }
+
+    .markdown-modal__body {
+      padding: var(--space-lg);
+    }
+  }
+</style>
+
+<script>
+  // Handle ESC key to close modal
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      const openModal = document.querySelector('.markdown-modal[open]');
+      if (openModal) {
+        (openModal as HTMLDialogElement).close();
+      }
+    }
+  });
+
+  // Handle clicks on dialog backdrop (outside the container)
+  // Use event delegation to handle clicks on dynamically added modals
+  document.addEventListener('click', (e) => {
+    const modal = (e.target as HTMLElement).closest('.markdown-modal[open]') as HTMLDialogElement | null;
+    if (!modal) return;
+    
+    const container = (e.target as HTMLElement).closest('.markdown-modal__container');
+    // If click is directly on the dialog element (not on container or its children), close it
+    if (e.target === modal) {
+      modal.close();
+    }
+  });
+</script>
+

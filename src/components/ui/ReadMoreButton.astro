@@ -1,0 +1,103 @@
+---
+interface Props {
+  modalId: string;
+  ariaLabel?: string;
+}
+
+const { modalId, ariaLabel = "Read more" } = Astro.props;
+---
+
+<button
+  class="read-more-button"
+  onclick={`document.getElementById('${modalId}').showModal()`}
+  aria-label={ariaLabel}
+  title={ariaLabel}
+>
+  <svg 
+    class="read-more-button__icon" 
+    width="24" 
+    height="24" 
+    viewBox="0 0 24 24" 
+    fill="none" 
+    stroke="currentColor" 
+    stroke-width="2" 
+    stroke-linecap="round" 
+    stroke-linejoin="round"
+  >
+    <!-- Notebook/Book icon -->
+    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+    <path d="M8 7h8"></path>
+    <path d="M8 11h8"></path>
+    <path d="M8 15h6"></path>
+  </svg>
+</button>
+
+<style>
+  .read-more-button {
+    position: absolute;
+    bottom: var(--space-xl);
+    left: var(--space-xl);
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 50%;
+    background: rgba(247, 147, 26, 0.15);
+    border: 1px solid rgba(247, 147, 26, 0.3);
+    color: var(--color-bitcoin, #f7931a);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-normal);
+    z-index: 10;
+    backdrop-filter: blur(4px);
+    padding: 0;
+    margin: 0;
+  }
+
+  .read-more-button:hover {
+    background: rgba(247, 147, 26, 0.25);
+    border-color: var(--color-bitcoin, #f7931a);
+    box-shadow: 0 0 16px rgba(247, 147, 26, 0.5), 0 0 32px rgba(247, 147, 26, 0.3);
+    transform: scale(1.1);
+  }
+
+  .read-more-button:active {
+    transform: scale(1.05);
+  }
+
+  .read-more-button:focus-visible {
+    outline: 2px solid var(--color-bitcoin, #f7931a);
+    outline-offset: 2px;
+  }
+
+  .read-more-button__icon {
+    transition: transform var(--transition-fast);
+  }
+
+  .read-more-button:hover .read-more-button__icon {
+    transform: scale(1.1);
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .read-more-button {
+      width: 3rem;
+      height: 3rem;
+      bottom: var(--space-lg);
+      left: var(--space-lg);
+    }
+
+    .read-more-button__icon {
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  /* Ensure button is visible above section content and positioned correctly */
+  .read-more-button {
+    position: absolute;
+    z-index: 20;
+  }
+</style>
+
