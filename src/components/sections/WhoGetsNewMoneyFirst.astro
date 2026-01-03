@@ -4,6 +4,9 @@
 
 import MarkdownModal from '../ui/MarkdownModal.astro';
 import ReadMoreButton from '../ui/ReadMoreButton.astro';
+import ImageBackground from '../ui/ImageBackground.astro';
+import VideoEmbed from '../ui/VideoEmbed.astro';
+import backgroundImage from '../../assets/wallpapers/banks.jpg';
 
 const title = "Who Gets the New Money First?"
 const content = "New money reaches banks, corporations, and government first — they spend it before prices rise. By the time it reaches you, everything costs more. This is the Cantillon Effect in action."
@@ -11,16 +14,48 @@ const resourceLink = ""
 const resourceText = "Learn About the Cantillon Effect"
 ---
 
+<!-- Image Background -->
+<ImageBackground
+  src={backgroundImage}
+  opacity={0.3}
+/>
+
 <!-- Section Content - Slot content for SectionWrapper -->
-<div class="flex flex-col justify-center items-center h-full py-8 px-4 sm:px-6 lg:px-8">
-  <div class="max-w-4xl mx-auto text-center">
-    <h2 class="bs-h2 mb-6">{ title }</h2>
-    <p class="bs-body-text text-xl text-bs-foreground-dark mb-6">{ content }</p>
-    {resourceLink && (
-      <a href={resourceLink} target="_blank" rel="noopener" class="bs-btn">
-        { resourceText }
-      </a>
-    )}
+<div class="flex flex-col h-full py-8 px-4 sm:px-6 lg:px-8 relative z-10">
+  <!-- Two-Column Layout -->
+  <div class="flex-1 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center max-w-7xl mx-auto w-full">
+    <!-- Left Side: Title and Content -->
+    <div class="flex flex-col justify-center">
+      <h2 class="bs-h2 mb-6">{ title }</h2>
+      <div class="bs-body-text text-lg text-bs-foreground-dark space-y-4">
+        <p>
+          New money reaches banks, corporations, and government first. They spend it before prices rise, 
+          purchasing assets, real estate, and goods at current market rates. By the time this new money 
+          trickles down to you through wages or benefits, everything already costs more.
+        </p>
+        <p>
+          This is the Cantillon Effect in action. Named after 18th-century economist Richard Cantillon, 
+          it describes how money creation benefits those closest to the source of new money, while those 
+          furthest away bear the brunt of inflation. The closer you are to the money printer, the more 
+          purchasing power you maintain. The further away, the more you lose.
+        </p>
+        <p>
+          Banks get first access through loans and credit creation. Corporations receive it through 
+          government contracts and favorable financing. Government agencies spend it on programs and 
+          infrastructure. By the time it reaches working families, the damage is done. Your savings 
+          have been silently eroded, and your purchasing power diminished.
+        </p>
+      </div>
+    </div>
+
+    <!-- Right Side: Video Embed -->
+    <div class="flex flex-col">
+      <VideoEmbed
+        src="https://www.youtube-nocookie.com/embed/th8mH8ywdTY"
+        title="Understanding the Cantillon Effect"
+        caption="Learn how new money flows through the economy and affects different groups"
+      />
+    </div>
   </div>
 
   <!-- Read More Button -->

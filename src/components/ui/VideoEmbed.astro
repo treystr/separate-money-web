@@ -1,0 +1,153 @@
+---
+// VideoEmbed.astro - Reusable video embed component
+// Supports YouTube embeds with optional caption
+
+export interface Props {
+  src: string; // YouTube embed URL or iframe src
+  caption?: string; // Optional caption displayed below video
+  className?: string;
+  aspectRatio?: string; // e.g., '16/9', '4/3', default '16/9'
+  title?: string; // For accessibility
+}
+
+const {
+  src,
+  caption,
+  className = '',
+  aspectRatio = '16/9',
+  title = 'Video embed'
+} = Astro.props;
+
+// Ensure src is a proper embed URL and add enablejsapi=1 for YouTube API control
+let embedSrc = src;
+const isYouTube = src.includes('youtube.com/embed/') || src.includes('youtube-nocookie.com/embed/');
+if (isYouTube) {
+  // Add enablejsapi=1 to enable YouTube IFrame API
+  const separator = embedSrc.includes('?') ? '&' : '?';
+  embedSrc = `${embedSrc}${separator}enablejsapi=1`;
+}
+
+// Generate unique ID for this video embed
+const videoId = `video-embed-${Math.random().toString(36).substr(2, 9)}`;
+---
+
+<div class={`video-embed ${className}`}>
+  <div class="video-embed__container" style={`aspect-ratio: ${aspectRatio};`}>
+    <iframe
+      id={videoId}
+      class="video-embed__iframe"
+      src={embedSrc}
+      title={title}
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowfullscreen
+      loading="lazy"
+      data-youtube-embed={isYouTube ? 'true' : 'false'}
+    ></iframe>
+  </div>
+  {caption && (
+    <p class="video-embed__caption">{caption}</p>
+  )}
+</div>
+
+<style>
+  .video-embed {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .video-embed__container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    background: var(--color-cypherpunk-dark, #000);
+  }
+
+  .video-embed__iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+
+  .video-embed__caption {
+    margin-top: 1rem;
+    font-size: 0.875rem;
+    color: var(--color-foreground-dark, rgba(255, 255, 255, 0.7));
+    text-align: center;
+    font-style: italic;
+  }
+</style>
+
+<script is:inline>
+  // Pause YouTube videos when they scroll out of view
+  (function() {
+    const observedIframes = new WeakSet();
+    
+    function initVideoEmbedPause() {
+      const videoEmbeds = document.querySelectorAll('.video-embed__iframe[data-youtube-embed="true"]');
+      
+      if (videoEmbeds.length === 0) return;
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          const iframe = entry.target;
+          if (!entry.isIntersecting && iframe.contentWindow) {
+            // Video is out of view, pause it using YouTube IFrame API
+            try {
+              iframe.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+            } catch (e) {
+              // Silently fail if postMessage doesn't work (CORS or iframe not ready)
+              console.debug('Could not pause YouTube video:', e);
+            }
+          }
+        });
+      }, {
+        rootMargin: '50px' // Start pausing slightly before completely out of view
+      });
+
+      videoEmbeds.forEach(iframe => {
+        // Avoid observing the same iframe multiple times
+        if (observedIframes.has(iframe)) return;
+        
+        // Wait for iframe to load before observing
+        iframe.addEventListener('load', () => {
+          if (!observedIframes.has(iframe)) {
+            observer.observe(iframe);
+            observedIframes.add(iframe);
+          }
+        }, { once: true });
+        
+        // If already loaded (check by readyState or complete property)
+        if (iframe.complete || iframe.readyState === 'complete') {
+          if (!observedIframes.has(iframe)) {
+            observer.observe(iframe);
+            observedIframes.add(iframe);
+          }
+        }
+      });
+    }
+
+    // Initialize when DOM is ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initVideoEmbedPause);
+    } else {
+      initVideoEmbedPause();
+    }
+    
+    // Also handle dynamically added videos
+    const mutationObserver = new MutationObserver(() => {
+      initVideoEmbedPause();
+    });
+    
+    mutationObserver.observe(document.body, {
+      childList: true,
+      subtree: true
+    });
+  })();
+</script>
+
