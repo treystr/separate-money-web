@@ -2,6 +2,9 @@
 // Section 09: Who Gets the New Money First?
 // Arc II: The Theft
 
+import MarkdownModal from '../ui/MarkdownModal.astro';
+import ReadMoreButton from '../ui/ReadMoreButton.astro';
+
 const title = "Who Gets the New Money First?"
 const content = "New money reaches banks, corporations, and government first — they spend it before prices rise. By the time it reaches you, everything costs more. This is the Cantillon Effect in action."
 const resourceLink = ""
@@ -19,7 +22,17 @@ const resourceText = "Learn About the Cantillon Effect"
       </a>
     )}
   </div>
+
+  <!-- Read More Button -->
+  <ReadMoreButton modalId="cantillon-modal" ariaLabel="Learn more about the Cantillon Effect" />
 </div>
+
+<!-- Markdown Modal -->
+<MarkdownModal
+  id="cantillon-modal"
+  title="Understanding the Cantillon Effect"
+  markdownFile="WhoGetsNewMoneyFirst.md"
+/>
 
 <style>
   /* Section-specific styles */
