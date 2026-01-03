@@ -51,7 +51,7 @@ try {
       breaks: true,
       gfm: true,
     });
-    htmlContent = marked(markdownContent);
+    htmlContent = marked(markdownContent) as string;
   } else {
     console.warn(`Markdown file not found: ${markdownFile}. Available files:`, Object.keys(markdownModules));
     htmlContent = '<p>Content not available. Please check that the markdown file exists in the <code>src/content</code> directory.</p>';

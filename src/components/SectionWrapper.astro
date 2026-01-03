@@ -101,6 +101,8 @@ const { transitionType = 'fade', sectionId } = Astro.props;
   <script>
     // Intersection Observer for reveal animations
     class SectionObserver {
+      observer: IntersectionObserver | null;
+
       constructor() {
         this.observer = null;
         this.init();

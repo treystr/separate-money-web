@@ -1,5 +1,6 @@
 ---
-import videos from "../data/videos.json"
+const videosData = import.meta.glob('../data/videos.json', { eager: true });
+const videos = (videosData['../data/videos.json'] as any)?.default || [];
 
 const { title } = Astro.props
 ---
