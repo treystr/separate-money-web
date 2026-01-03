@@ -4,15 +4,19 @@
 
 const headline = "Separate Money and State"
 const subheadline = "Just like church and state, money works best when it's free from central control."
+const subheadlineMobile = "Money works best when free from central control."
 const bodyParagraph = "History teaches us the value of checks and balances. Separating church and state prevents any single authority from dominating personal lives. The same principle could transform money: when governments have sole control over the money supply, it opens the door to expansive monetary policies that support unchecked spending and institutional bailouts, often passing hidden burdens to everyone else. This site builds the case that these dynamics contribute to many familiar challenges today and shows how separating money from state control can restore fairness, safeguard your savings, and create real opportunities for individual prosperity. By the end, you'll discover how you can quietly opt out of this system and step into a fairer money that puts control back in your hands."
+const bodyParagraphMobile = "Just like church and state, separating money from government control prevents any single authority from dominating. This site shows how opting out can restore fairness and put control back in your hands."
 ---
 
 <!-- Hero Section Content -->
 <div class="flex flex-col justify-center items-center h-full py-8 px-4 sm:px-6 lg:px-8 relative">
   <div class="max-w-4xl mx-auto text-center">
     <h1 class="bs-h1 mb-4">{ headline }</h1>
-    <p class="bs-h2 mb-8 text-bs-foreground-dark">{ subheadline }</p>
-    <p class="bs-body-text text-lg text-bs-foreground-dark leading-relaxed">{ bodyParagraph }</p>
+    <p class="bs-h2 mb-8 text-bs-foreground-dark subheadline-desktop">{ subheadline }</p>
+    <p class="bs-h2 mb-8 text-bs-foreground-dark subheadline-mobile">{ subheadlineMobile }</p>
+    <p class="bs-body-text text-lg text-bs-foreground-dark leading-relaxed body-desktop">{ bodyParagraph }</p>
+    <p class="bs-body-text text-lg text-bs-foreground-dark leading-relaxed body-mobile">{ bodyParagraphMobile }</p>
   </div>
   
   <!-- Scroll hint indicator -->
@@ -64,6 +68,24 @@ const bodyParagraph = "History teaches us the value of checks and balances. Sepa
   @media (max-width: 767px) {
     .scroll-hint {
       display: none;
+    }
+  }
+
+  /* Responsive text content */
+  .subheadline-mobile,
+  .body-mobile {
+    display: none;
+  }
+
+  @media (max-width: 767px) {
+    .subheadline-desktop,
+    .body-desktop {
+      display: none;
+    }
+
+    .subheadline-mobile,
+    .body-mobile {
+      display: block;
     }
   }
 </style>
