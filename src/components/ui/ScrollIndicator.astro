@@ -85,7 +85,7 @@ const SCALES = {
 
 // Responsive breakpoints
 const BREAKPOINTS = {
-  mobile: 768, // px - hide indicator below this
+  mobile: 1024, // px - hide indicator below this (mobile and tablet)
   tablet: 1024 // px - use tablet styles below this
 };
 
@@ -296,15 +296,15 @@ const arcs = [
     opacity: 1;
   }
 
-  /* Mobile: Hide on small screens */
-  @media (max-width: var(--mobileBreakpoint)) {
+  /* Mobile and Tablet: Hide on screens smaller than desktop */
+  @media (max-width: 1023px) {
     .scroll-indicator {
-      display: none;
+      display: none !important;
     }
   }
 
-  /* Tablet: Smaller size */
-  @media (min-width: calc(var(--mobileBreakpoint) + 1px)) and (max-width: var(--tabletBreakpoint)) {
+  /* Tablet: Smaller size (if we want to show it on tablets in the future) */
+  @media (min-width: 768px) and (max-width: 1023px) {
     .scroll-indicator {
       right: var(--rightOffsetTablet);
     }
