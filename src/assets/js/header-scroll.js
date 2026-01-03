@@ -53,9 +53,8 @@ class HeaderScroll {
 
   update() {
     const currentScrollY = window.scrollY;
-    const scrollDelta = currentScrollY - this.lastScrollY;
 
-    // Always show header at the top of the page
+    // Always show header at the top of the page, hide it when scrolling down
     if (currentScrollY <= 100) {
       if (this.isHidden) {
         this.header.classList.remove('header-hidden');
@@ -63,19 +62,11 @@ class HeaderScroll {
         this.updateScrollPadding();
       }
     } else {
-      // Only hide/show if we've scrolled more than a threshold
-      if (Math.abs(scrollDelta) > 5) {
-        if (scrollDelta > 0 && !this.isHidden) {
-          // Scrolling down - hide header
-          this.header.classList.add('header-hidden');
-          this.isHidden = true;
-          this.updateScrollPadding();
-        } else if (scrollDelta < 0 && this.isHidden) {
-          // Scrolling up - show header
-          this.header.classList.remove('header-hidden');
-          this.isHidden = false;
-          this.updateScrollPadding();
-        }
+      // Hide header when not at the top of the page
+      if (!this.isHidden) {
+        this.header.classList.add('header-hidden');
+        this.isHidden = true;
+        this.updateScrollPadding();
       }
     }
 
