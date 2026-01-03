@@ -1,0 +1,30 @@
+---
+// Section 11: You Can Choose Better Money
+// Arc III: The Way Out
+
+const title = "You Can Choose Better Money"
+const content = "You don't need permission to opt into a system that actually preserves the value of your work. Bitcoin is open to anyone, runs on unbreakable rules, and can't be manipulated by any single authority."
+const resourceLink = ""
+const resourceText = "Learn More"
+---
+
+<!-- Section Content - Slot content for SectionWrapper -->
+<div class="flex flex-col justify-center items-center h-full py-8 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-4xl mx-auto text-center">
+    <h2 class="bs-h2 mb-6">{ title }</h2>
+    <p class="bs-body-text text-xl text-bs-foreground-dark mb-6">{ content }</p>
+    {resourceLink && (
+      <a href={resourceLink} target="_blank" rel="noopener" class="bs-btn">
+        { resourceText }
+      </a>
+    )}
+  </div>
+</div>
+
+<style>
+  /* Section-specific styles */
+  :global(.section-wrapper:has(#section-11)) {
+    background: linear-gradient(135deg, var(--color-cypherpunk-gray) 0%, var(--color-bitcoin-dark) 50%, var(--color-cypherpunk-gray) 100%);
+  }
+</style>
+

@@ -1,0 +1,23 @@
+---
+// Section 03: The Daily Grind
+// Arc I: The Struggle
+
+const title = "The Daily Grind"
+const content = "Both parents working full-time yet still choosing between medicine and groceries. Young adults delaying families because they can't afford homes. Rising stress, declining health — all tied to money that loses value faster than we can earn it."
+---
+
+<!-- Section Content - Slot content for SectionWrapper -->
+<div class="flex flex-col justify-center items-center h-full py-8 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-4xl mx-auto text-center">
+    <h2 class="bs-h2 mb-6">{ title }</h2>
+    <p class="bs-body-text text-xl text-bs-foreground-dark">{ content }</p>
+  </div>
+</div>
+
+<style>
+  /* Section-specific styles */
+  :global(.section-wrapper:has(#section-03)) {
+    background: linear-gradient(135deg, var(--color-cypherpunk-dark) 0%, var(--color-cypherpunk-gray) 100%);
+  }
+</style>
+

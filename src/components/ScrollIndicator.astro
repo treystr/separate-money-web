@@ -1,17 +1,25 @@
 ---
 // ScrollIndicator.astro - Visual scroll progress indicator with arcs and dots
-// Shows 3 major arcs (The Invisible Tax, The Great Rugpull, The Peaceful Revolution)
+// Shows 3 major arcs (The Struggle, The Theft, The Way Out)
 // with dots for each section, using bitcoin orange color scheme
+
+import sectionsData from "../data/sections.json";
 
 // ===== CONFIGURATION VARIABLES =====
 // Easily customize the scroll indicator by modifying these values
 
 // Arc definitions: which sections belong to which arc
 const ARC_CONFIG = {
-  arc1: { start: 1, end: 4, label: "The Struggle", title: "Arc I: The Invisible Tax" },
-  arc2: { start: 5, end: 8, label: "The Theft", title: "Arc II: The Great Rugpull" },
-  arc3: { start: 9, end: 11, label: "The Exit", title: "Arc III: The Peaceful Revolution" }
+  arc1: { start: 1, end: 6, label: "The Struggle", title: "Arc I: The Struggle" },
+  arc2: { start: 7, end: 10, label: "The Theft", title: "Arc II: The Theft" },
+  arc3: { start: 11, end: 18, label: "The Way Out", title: "Arc III: The Way Out" }
 };
+
+// Create a map of section numbers to titles from the data
+const sectionTitles = {};
+sectionsData.sections.forEach(section => {
+  sectionTitles[section.id] = section.title;
+});
 
 // Colors (using CSS variables where possible, with fallbacks)
 const COLORS = {
@@ -103,7 +111,8 @@ const arcs = [
               href={`#section-${String(sectionNum).padStart(2, '0')}`} 
               class="scroll-indicator__dot" 
               data-section={sectionNum} 
-              aria-label={`Section ${sectionNum}`}
+              title={sectionTitles[sectionNum] || `Section ${sectionNum}`}
+              aria-label={sectionTitles[sectionNum] || `Section ${sectionNum}`}
             ></a>
           ))}
         </div>
@@ -329,6 +338,9 @@ const arcs = [
     init() {
       if (!this.indicator || this.sections.length === 0) return;
 
+      // Dynamically update dot titles from DOM (auto-updates when sections change)
+      this.updateDotTitles();
+
       // Show indicator after a short delay
       setTimeout(() => {
         this.indicator?.classList.add('visible');
@@ -350,6 +362,28 @@ const arcs = [
             target.scrollIntoView({ behavior: 'smooth', block: 'start' });
           }
         });
+      });
+    }
+
+    // Dynamically read section titles from DOM h2 elements
+    // This ensures titles auto-update when sections are modified
+    updateDotTitles() {
+      this.dots.forEach(dot => {
+        const sectionNum = parseInt(dot.getAttribute('data-section'));
+        const sectionId = `section-${String(sectionNum).padStart(2, '0')}`;
+        const section = document.getElementById(sectionId);
+        
+        if (section) {
+          // Try to find h2 element in the section
+          const h2 = section.querySelector('h2');
+          if (h2) {
+            const title = h2.textContent.trim();
+            if (title) {
+              dot.setAttribute('title', title);
+              dot.setAttribute('aria-label', title);
+            }
+          }
+        }
       });
     }
 

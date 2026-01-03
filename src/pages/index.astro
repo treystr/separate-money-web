@@ -3,17 +3,43 @@
 import Layout from "../layouts/Layout.astro"
 import SectionWrapper from "../components/SectionWrapper.astro"
 
-// Import all section components
-import HeroEntry from "../components/sections/HeroEntry.astro"
-import InheritanceCost from "../components/sections/InheritanceCost.astro"
-import SilentTheft from "../components/sections/SilentTheft.astro"
-import ProblemWhy from "../components/sections/ProblemWhy.astro"
-import GenerationalInheritance from "../components/sections/GenerationalInheritance.astro"
-import HayekQuote from "../components/sections/HayekQuote.astro"
-import PrivacyFreedom from "../components/sections/PrivacyFreedom.astro"
-import FaqSection from "../components/sections/FaqSection.astro"
-import SpreadWord from "../components/sections/SpreadWord.astro"
-import FinalCta from "../components/sections/FinalCta.astro"
+// Import new section components matching the storyline
+// Arc I: The Struggle (Sections 1-6)
+import YoureNotCrazy from "../components/sections/YoureNotCrazy.astro"
+import TurningPoint1971 from "../components/sections/TurningPoint1971.astro"
+import DailyGrind from "../components/sections/DailyGrind.astro"
+import VanishingOpportunity from "../components/sections/VanishingOpportunity.astro"
+import MoneyBrokenSocietyDivides from "../components/sections/MoneyBrokenSocietyDivides.astro"
+import WhyEverythingBroken from "../components/sections/WhyEverythingBroken.astro"
+
+// Arc II: The Theft (Sections 7-10)
+import NixonShock from "../components/sections/NixonShock.astro"
+import InflationHiddenTax from "../components/sections/InflationHiddenTax.astro"
+import WhoGetsNewMoneyFirst from "../components/sections/WhoGetsNewMoneyFirst.astro"
+import UnlimitedMoneyEndlessSpending from "../components/sections/UnlimitedMoneyEndlessSpending.astro"
+
+// Arc III: The Way Out (Sections 11-18)
+import YouCanChooseBetterMoney from "../components/sections/YouCanChooseBetterMoney.astro"
+import MoneyStoresTimeEnergy from "../components/sections/MoneyStoresTimeEnergy.astro"
+import RulesWithoutRulers from "../components/sections/RulesWithoutRulers.astro"
+import BornFromLastCrisis from "../components/sections/BornFromLastCrisis.astro"
+import PeacefulSeparationHayek from "../components/sections/PeacefulSeparationHayek.astro"
+import PrivacyAsHumanRight from "../components/sections/PrivacyAsHumanRight.astro"
+import RealPeopleRealFreedom from "../components/sections/RealPeopleRealFreedom.astro"
+import YourExitStartsHere from "../components/sections/YourExitStartsHere.astro"
+
+// Old sections (commented out - may reuse later)
+// import HeroEntry from "../components/sections/HeroEntry.astro"
+// import InheritanceCost from "../components/sections/InheritanceCost.astro"
+// import SilentTheft from "../components/sections/SilentTheft.astro"
+// import ProblemWhy from "../components/sections/ProblemWhy.astro"
+// import GenerationalInheritance from "../components/sections/GenerationalInheritance.astro"
+// import HayekQuote from "../components/sections/HayekQuote.astro"
+// import PrivacyFreedom from "../components/sections/PrivacyFreedom.astro"
+// import FaqSection from "../components/sections/FaqSection.astro"
+// import SpreadWord from "../components/sections/SpreadWord.astro"
+// import FinalCta from "../components/sections/FinalCta.astro"
+
 import FooterMain from "../components/FooterMain.astro"
 
 import global_settings from "../data/global_settings.json"
@@ -22,58 +48,104 @@ import global_settings from "../data/global_settings.json"
 
 <Layout title={ global_settings.title }>
 
-  <!-- Hero Entry: The HERO Entry -->
+  <!-- Arc I: The Struggle -->
+  
+  <!-- Section 01: You're Not Crazy — Life Is Getting Harder -->
   <SectionWrapper transitionType="fade" sectionId="section-01">
-    <HeroEntry />
+    <YoureNotCrazy />
   </SectionWrapper>
 
-  <!-- Inheritance Cost: The Cost of Our Inheritance -->
+  <!-- Section 02: The Turning Point of 1971 -->
   <SectionWrapper transitionType="slide-up" sectionId="section-02">
-    <InheritanceCost />
+    <TurningPoint1971 />
   </SectionWrapper>
 
-  <!-- Silent Theft: The Silent Theft -->
-  <SectionWrapper transitionType="glitch" sectionId="section-03">
-    <SilentTheft />
+  <!-- Section 03: The Daily Grind -->
+  <SectionWrapper transitionType="fade" sectionId="section-03">
+    <DailyGrind />
   </SectionWrapper>
 
-  <!-- Problem Why: What's the Problem & Why -->
-  <SectionWrapper transitionType="fade" sectionId="section-04">
-    <ProblemWhy />
+  <!-- Section 04: The Vanishing Opportunity -->
+  <SectionWrapper transitionType="slide-up" sectionId="section-04">
+    <VanishingOpportunity />
   </SectionWrapper>
 
-  <!-- Generational Inheritance: A Generation's Inheritance -->
-  <SectionWrapper transitionType="slide-up" sectionId="section-05">
-    <GenerationalInheritance />
+  <!-- Section 05: When Money Is Broken, Society Divides -->
+  <SectionWrapper transitionType="fade" sectionId="section-05">
+    <MoneyBrokenSocietyDivides />
   </SectionWrapper>
 
-  <!-- Hayek Quote: A Sly, Roundabout Way -->
-  <SectionWrapper transitionType="zoom-in" sectionId="section-06">
-    <HayekQuote />
+  <!-- Section 06: Why Does Everything Feel So Broken? -->
+  <SectionWrapper transitionType="glitch" sectionId="section-06">
+    <WhyEverythingBroken />
   </SectionWrapper>
 
-  <!-- Privacy Freedom: Privacy is Necessary for Freedom -->
+  <!-- Arc II: The Theft -->
+
+  <!-- Section 07: The Nixon Shock — When Money Broke from Reality -->
   <SectionWrapper transitionType="fade" sectionId="section-07">
-    <PrivacyFreedom />
+    <NixonShock />
   </SectionWrapper>
 
-  <!-- FAQ Section: FAQ -->
+  <!-- Section 08: Inflation: The Hidden Tax You Never Voted For -->
   <SectionWrapper transitionType="slide-up" sectionId="section-08">
-    <FaqSection />
+    <InflationHiddenTax />
   </SectionWrapper>
 
-  <!-- Spread Word: Spread the Word -->
+  <!-- Section 09: Who Gets the New Money First? -->
   <SectionWrapper transitionType="fade" sectionId="section-09">
-    <SpreadWord />
+    <WhoGetsNewMoneyFirst />
   </SectionWrapper>
 
-  <!-- Final CTA: Final Call to Action -->
-  <SectionWrapper transitionType="zoom-in" sectionId="section-10">
-    <FinalCta />
+  <!-- Section 10: Unlimited Money, Endless Spending -->
+  <SectionWrapper transitionType="slide-up" sectionId="section-10">
+    <UnlimitedMoneyEndlessSpending />
+  </SectionWrapper>
+
+  <!-- Arc III: The Way Out -->
+
+  <!-- Section 11: You Can Choose Better Money -->
+  <SectionWrapper transitionType="zoom-in" sectionId="section-11">
+    <YouCanChooseBetterMoney />
+  </SectionWrapper>
+
+  <!-- Section 12: Money Should Store Your Time and Energy -->
+  <SectionWrapper transitionType="fade" sectionId="section-12">
+    <MoneyStoresTimeEnergy />
+  </SectionWrapper>
+
+  <!-- Section 13: Rules Without Rulers -->
+  <SectionWrapper transitionType="slide-up" sectionId="section-13">
+    <RulesWithoutRulers />
+  </SectionWrapper>
+
+  <!-- Section 14: Born from the Last Crisis -->
+  <SectionWrapper transitionType="fade" sectionId="section-14">
+    <BornFromLastCrisis />
+  </SectionWrapper>
+
+  <!-- Section 15: Peaceful Separation — Hayek's Vision -->
+  <SectionWrapper transitionType="zoom-in" sectionId="section-15">
+    <PeacefulSeparationHayek />
+  </SectionWrapper>
+
+  <!-- Section 16: Privacy as a Human Right -->
+  <SectionWrapper transitionType="fade" sectionId="section-16">
+    <PrivacyAsHumanRight />
+  </SectionWrapper>
+
+  <!-- Section 17: Real People, Real Freedom -->
+  <SectionWrapper transitionType="slide-up" sectionId="section-17">
+    <RealPeopleRealFreedom />
+  </SectionWrapper>
+
+  <!-- Section 18: Your Exit Starts Here -->
+  <SectionWrapper transitionType="zoom-in" sectionId="section-18">
+    <YourExitStartsHere />
   </SectionWrapper>
 
   <!-- Footer Section -->
-  <SectionWrapper transitionType="fade" sectionId="section-11">
+  <SectionWrapper transitionType="fade" sectionId="section-19">
     <div class="flex flex-col h-full px-4 sm:px-6 lg:px-8">
       <!-- Spacer for future content (image, etc.) -->
       <div class="flex-1"></div>
@@ -85,9 +157,52 @@ import global_settings from "../data/global_settings.json"
     </div>
   </SectionWrapper>
 
+  <!-- Old sections (commented out - may reuse later) -->
+  <!-- 
+  <SectionWrapper transitionType="fade" sectionId="section-01">
+    <HeroEntry />
+  </SectionWrapper>
+
+  <SectionWrapper transitionType="slide-up" sectionId="section-02">
+    <InheritanceCost />
+  </SectionWrapper>
+
+  <SectionWrapper transitionType="glitch" sectionId="section-03">
+    <SilentTheft />
+  </SectionWrapper>
+
+  <SectionWrapper transitionType="fade" sectionId="section-04">
+    <ProblemWhy />
+  </SectionWrapper>
+
+  <SectionWrapper transitionType="slide-up" sectionId="section-05">
+    <GenerationalInheritance />
+  </SectionWrapper>
+
+  <SectionWrapper transitionType="zoom-in" sectionId="section-06">
+    <HayekQuote />
+  </SectionWrapper>
+
+  <SectionWrapper transitionType="fade" sectionId="section-07">
+    <PrivacyFreedom />
+  </SectionWrapper>
+
+  <SectionWrapper transitionType="slide-up" sectionId="section-08">
+    <FaqSection />
+  </SectionWrapper>
+
+  <SectionWrapper transitionType="fade" sectionId="section-09">
+    <SpreadWord />
+  </SectionWrapper>
+
+  <SectionWrapper transitionType="zoom-in" sectionId="section-10">
+    <FinalCta />
+  </SectionWrapper>
+  -->
+
 <style>
   /* Override footer top margin when in section context */
-  #section-11 footer {
+  #section-19 footer {
     margin-top: 0;
   }
 </style>

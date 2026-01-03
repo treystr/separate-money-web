@@ -1,0 +1,118 @@
+{
+  "sections": [
+    {
+      "id": 1,
+      "title": "You're Not Crazy — Life Is Getting Harder",
+      "arc": 1
+    },
+    {
+      "id": 2,
+      "title": "The Turning Point of 1971",
+      "arc": 1
+    },
+    {
+      "id": 3,
+      "title": "The Daily Grind",
+      "arc": 1
+    },
+    {
+      "id": 4,
+      "title": "The Vanishing Opportunity",
+      "arc": 1
+    },
+    {
+      "id": 5,
+      "title": "When Money Is Broken, Society Divides",
+      "arc": 1
+    },
+    {
+      "id": 6,
+      "title": "Why Does Everything Feel So Broken?",
+      "arc": 1
+    },
+    {
+      "id": 7,
+      "title": "The Nixon Shock — When Money Broke from Reality",
+      "arc": 2
+    },
+    {
+      "id": 8,
+      "title": "Inflation: The Hidden Tax You Never Voted For",
+      "arc": 2
+    },
+    {
+      "id": 9,
+      "title": "Who Gets the New Money First?",
+      "arc": 2
+    },
+    {
+      "id": 10,
+      "title": "Unlimited Money, Endless Spending",
+      "arc": 2
+    },
+    {
+      "id": 11,
+      "title": "You Can Choose Better Money",
+      "arc": 3
+    },
+    {
+      "id": 12,
+      "title": "Money Should Store Your Time and Energy",
+      "arc": 3
+    },
+    {
+      "id": 13,
+      "title": "Rules Without Rulers",
+      "arc": 3
+    },
+    {
+      "id": 14,
+      "title": "Born from the Last Crisis",
+      "arc": 3
+    },
+    {
+      "id": 15,
+      "title": "Peaceful Separation — Hayek's Vision",
+      "arc": 3
+    },
+    {
+      "id": 16,
+      "title": "Privacy as a Human Right",
+      "arc": 3
+    },
+    {
+      "id": 17,
+      "title": "Real People, Real Freedom",
+      "arc": 3
+    },
+    {
+      "id": 18,
+      "title": "Your Exit Starts Here",
+      "arc": 3
+    }
+  ],
+  "arcs": [
+    {
+      "id": 1,
+      "start": 1,
+      "end": 6,
+      "label": "The Struggle",
+      "title": "Arc I: The Struggle"
+    },
+    {
+      "id": 2,
+      "start": 7,
+      "end": 10,
+      "label": "The Theft",
+      "title": "Arc II: The Theft"
+    },
+    {
+      "id": 3,
+      "start": 11,
+      "end": 18,
+      "label": "The Way Out",
+      "title": "Arc III: The Way Out"
+    }
+  ]
+}
+

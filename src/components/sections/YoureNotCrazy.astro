@@ -1,0 +1,23 @@
+---
+// Section 01: You're Not Crazy — Life Is Getting Harder
+// Arc I: The Struggle
+
+const title = "You're Not Crazy — Life Is Getting Harder"
+const content = "You work longer hours than your parents did, yet housing, education, healthcare, and even groceries feel further out of reach. You're not imagining it, and you're not alone. Something fundamental has changed."
+---
+
+<!-- Section Content - Slot content for SectionWrapper -->
+<div class="flex flex-col justify-center items-center h-full py-8 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-4xl mx-auto text-center">
+    <h2 class="bs-h2 mb-6">{ title }</h2>
+    <p class="bs-body-text text-xl text-bs-foreground-dark">{ content }</p>
+  </div>
+</div>
+
+<style>
+  /* Section-specific styles */
+  :global(.section-wrapper:has(#section-01)) {
+    background: linear-gradient(135deg, var(--color-cypherpunk-dark) 0%, var(--color-cypherpunk-gray) 100%);
+  }
+</style>
+

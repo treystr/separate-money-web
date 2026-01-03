@@ -1,0 +1,30 @@
+---
+// Section 09: Who Gets the New Money First?
+// Arc II: The Theft
+
+const title = "Who Gets the New Money First?"
+const content = "New money reaches banks, corporations, and government first — they spend it before prices rise. By the time it reaches you, everything costs more. This is the Cantillon Effect in action."
+const resourceLink = ""
+const resourceText = "Learn About the Cantillon Effect"
+---
+
+<!-- Section Content - Slot content for SectionWrapper -->
+<div class="flex flex-col justify-center items-center h-full py-8 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-4xl mx-auto text-center">
+    <h2 class="bs-h2 mb-6">{ title }</h2>
+    <p class="bs-body-text text-xl text-bs-foreground-dark mb-6">{ content }</p>
+    {resourceLink && (
+      <a href={resourceLink} target="_blank" rel="noopener" class="bs-btn">
+        { resourceText }
+      </a>
+    )}
+  </div>
+</div>
+
+<style>
+  /* Section-specific styles */
+  :global(.section-wrapper:has(#section-09)) {
+    background: linear-gradient(135deg, var(--color-cypherpunk-dark) 0%, var(--color-cypherpunk-gray) 100%);
+  }
+</style>
+

@@ -1,0 +1,30 @@
+---
+// Section 04: The Vanishing Opportunity
+// Arc I: The Struggle
+
+const title = "The Vanishing Opportunity"
+const content = "The middle class is shrinking while the top captures almost all new wealth. Technology should make life cheaper and easier, but instead essentials keep getting more expensive."
+const resourceLink = "https://www.youtube.com/watch?v=example"
+const resourceText = "Why Everything Feels Broken"
+---
+
+<!-- Section Content - Slot content for SectionWrapper -->
+<div class="flex flex-col justify-center items-center h-full py-8 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-4xl mx-auto text-center">
+    <h2 class="bs-h2 mb-6">{ title }</h2>
+    <p class="bs-body-text text-xl text-bs-foreground-dark mb-6">{ content }</p>
+    {resourceLink && (
+      <a href={resourceLink} target="_blank" rel="noopener" class="bs-btn">
+        { resourceText }
+      </a>
+    )}
+  </div>
+</div>
+
+<style>
+  /* Section-specific styles */
+  :global(.section-wrapper:has(#section-04)) {
+    background: linear-gradient(135deg, var(--color-cypherpunk-darker) 0%, var(--color-cypherpunk-dark) 100%);
+  }
+</style>
+

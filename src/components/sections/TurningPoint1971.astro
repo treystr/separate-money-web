@@ -1,0 +1,30 @@
+---
+// Section 02: The Turning Point of 1971
+// Arc I: The Struggle
+
+const title = "The Turning Point of 1971"
+const content = "In 1971 something broke. Wages stopped rising with productivity, homes went from 3 years' salary to 8+, and the cost of college and healthcare exploded. These charts show the exact moment everything began to feel harder."
+const resourceLink = "https://wtfhappenedin1971.com"
+const resourceText = "Explore all the charts →"
+---
+
+<!-- Section Content - Slot content for SectionWrapper -->
+<div class="flex flex-col justify-center items-center h-full py-8 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-4xl mx-auto text-center">
+    <h2 class="bs-h2 mb-6">{ title }</h2>
+    <p class="bs-body-text text-xl text-bs-foreground-dark mb-6">{ content }</p>
+    {resourceLink && (
+      <a href={resourceLink} target="_blank" rel="noopener" class="bs-btn">
+        { resourceText }
+      </a>
+    )}
+  </div>
+</div>
+
+<style>
+  /* Section-specific styles */
+  :global(.section-wrapper:has(#section-02)) {
+    background: linear-gradient(135deg, var(--color-cypherpunk-darker) 0%, var(--color-cypherpunk-dark) 100%);
+  }
+</style>
+

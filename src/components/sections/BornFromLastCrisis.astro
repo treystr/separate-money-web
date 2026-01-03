@@ -1,0 +1,30 @@
+---
+// Section 14: Born from the Last Crisis
+// Arc III: The Way Out
+
+const title = "Born from the Last Crisis"
+const content = "Bitcoin was created in direct response to the 2008 bailouts — a system designed so no one is too big to fail and no one can be bailed out at your expense."
+const resourceLink = "https://bitcoin.org/bitcoin.pdf"
+const resourceText = "Read the Bitcoin White Paper"
+---
+
+<!-- Section Content - Slot content for SectionWrapper -->
+<div class="flex flex-col justify-center items-center h-full py-8 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-4xl mx-auto text-center">
+    <h2 class="bs-h2 mb-6">{ title }</h2>
+    <p class="bs-body-text text-xl text-bs-foreground-dark mb-6">{ content }</p>
+    {resourceLink && (
+      <a href={resourceLink} target="_blank" rel="noopener" class="bs-btn">
+        { resourceText }
+      </a>
+    )}
+  </div>
+</div>
+
+<style>
+  /* Section-specific styles */
+  :global(.section-wrapper:has(#section-14)) {
+    background: linear-gradient(135deg, var(--color-bitcoin-dark) 0%, var(--color-cypherpunk-gray) 100%);
+  }
+</style>
+

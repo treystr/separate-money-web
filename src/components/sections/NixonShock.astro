@@ -1,0 +1,30 @@
+---
+// Section 07: The Nixon Shock — When Money Broke from Reality
+// Arc II: The Theft
+
+const title = "The Nixon Shock — When Money Broke from Reality"
+const content = "In 1971 President Nixon ended the last link between the dollar and gold. Governments could now create unlimited money, and citizens began paying the price through silent inflation."
+const resourceLink = "https://wtfhappenedin1971.com"
+const resourceText = "Explore the deeper dive →"
+---
+
+<!-- Section Content - Slot content for SectionWrapper -->
+<div class="flex flex-col justify-center items-center h-full py-8 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-4xl mx-auto text-center">
+    <h2 class="bs-h2 mb-6">{ title }</h2>
+    <p class="bs-body-text text-xl text-bs-foreground-dark mb-6">{ content }</p>
+    {resourceLink && (
+      <a href={resourceLink} target="_blank" rel="noopener" class="bs-btn">
+        { resourceText }
+      </a>
+    )}
+  </div>
+</div>
+
+<style>
+  /* Section-specific styles */
+  :global(.section-wrapper:has(#section-07)) {
+    background: linear-gradient(135deg, var(--color-cypherpunk-dark) 0%, var(--color-cypherpunk-gray) 100%);
+  }
+</style>
+
