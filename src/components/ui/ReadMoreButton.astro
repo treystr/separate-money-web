@@ -9,7 +9,7 @@ const { modalId, ariaLabel = "Read more" } = Astro.props;
 
 <button
   class="read-more-button"
-  onclick={`document.getElementById('${modalId}').showModal()`}
+  onclick={`document.getElementById('${modalId}')?.showModal()`}
   aria-label={ariaLabel}
   title={ariaLabel}
 >

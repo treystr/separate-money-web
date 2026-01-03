@@ -1,6 +1,6 @@
-# Understanding the Cantillon Effect
-
-## What is the Cantillon Effect?
+---
+title: "Understanding the Cantillon Effect"
+---
 
 The Cantillon Effect is a concept from economics that explains how new money entering the economy doesn't benefit everyone equally. It was first described by Richard Cantillon, an 18th-century Irish-French economist, in his book *An Essay on Economic Theory*. In simple terms, when governments or central banks create new money (like through printing or digital expansion), it doesn't spread out evenly right away. Instead, it flows through the economy in a specific order, giving an advantage to those who get it first.
 
@@ -8,7 +8,7 @@ Imagine a river of fresh money starting at the source—usually banks, large cor
 
 This isn't just theory; it's a real dynamic in our fiat currency system, where money can be created at will by central authorities. It highlights a hidden inequality in how inflation works, often acting like a stealth tax on those farthest from the money creation process.
 
-## How Does It Work?
+### How Does It Work?
 
 Let's break it down step by step:
 
@@ -22,7 +22,7 @@ Let's break it down step by step:
 
 This process creates "winners" (those close to the money source) and "losers" (everyone else). It's why asset prices like housing and stocks often inflate faster than wages, widening the wealth gap.
 
-## How It Affects Everyday Working People
+### How It Affects Everyday Working People
 
 For most of us—teachers, nurses, factory workers, or small business owners—the Cantillon Effect feels like an uphill battle. Here's how it hits home:
 
