@@ -1,0 +1,458 @@
+---
+// ScrollIndicator.astro - Visual scroll progress indicator with arcs and dots
+// Shows 3 major arcs (The Invisible Tax, The Great Rugpull, The Peaceful Revolution)
+// with dots for each section, using bitcoin orange color scheme
+
+// ===== CONFIGURATION VARIABLES =====
+// Easily customize the scroll indicator by modifying these values
+
+// Arc definitions: which sections belong to which arc
+const ARC_CONFIG = {
+  arc1: { start: 1, end: 4, label: "Sickness", title: "Arc I: The Invisible Tax" },
+  arc2: { start: 5, end: 8, label: "Warnings", title: "Arc II: The Great Rugpull" },
+  arc3: { start: 9, end: 11, label: "Revolution", title: "Arc III: The Peaceful Revolution" }
+};
+
+// Colors (using CSS variables where possible, with fallbacks)
+const COLORS = {
+  bitcoin: "var(--color-bitcoin, #f7931a)",
+  bitcoinRgb: "247, 147, 26", // RGB values for rgba() usage
+  dotInactiveBg: "rgba(247, 147, 26, 0.3)",
+  dotInactiveBorder: "rgba(247, 147, 26, 0.5)",
+  dotPassedOpacity: 0.7,
+  arcLabelInactiveOpacity: 0.6,
+  lineGradient: {
+    start: "rgba(247, 147, 26, 0.2)",
+    middle: "rgba(247, 147, 26, 0.4)",
+    end: "rgba(247, 147, 26, 0.2)"
+  },
+  glowShadow: "rgba(247, 147, 26, 0.6)"
+};
+
+// Sizes
+const SIZES = {
+  dot: {
+    default: "10px",
+    tablet: "8px",
+    borderWidth: "2px"
+  },
+  lineWidth: "2px",
+  arcLabelFontSize: "0.625rem",
+  arcLabelLetterSpacing: "0.1em"
+};
+
+// Spacing
+const SPACING = {
+  containerGap: "1.5rem",
+  arcGap: "0.75rem",
+  dotsGap: "0.5rem",
+  linePadding: "5px",
+  rightOffset: {
+    desktop: "2rem",
+    tablet: "1rem"
+  }
+};
+
+// Animation & Timing
+const ANIMATION = {
+  indicatorShowDelay: 1000, // ms
+  arcTransitionDuration: "0.4s",
+  arcTransitionEasing: "ease",
+  dotTransitionDuration: "0.4s",
+  dotTransitionEasing: "cubic-bezier(0.34, 1.56, 0.64, 1)",
+  labelTransitionDuration: "0.3s",
+  lineTransitionDelay: "0.2s",
+  staggerDelay: 80, // ms between dot reveals
+  lookaheadSections: 2, // How many sections ahead to show dots
+  arcSlideDistance: "20px"
+};
+
+// Transform scales
+const SCALES = {
+  dotDefault: 1,
+  dotHover: 1.3,
+  dotActive: 1.2,
+  dotHidden: 0
+};
+
+// Responsive breakpoints
+const BREAKPOINTS = {
+  mobile: 768, // px - hide indicator below this
+  tablet: 1024 // px - use tablet styles below this
+};
+
+// Z-index
+const Z_INDEX = "var(--z-fixed, 1030)";
+
+// Generate arc data for template
+const arcs = [
+  { num: 1, ...ARC_CONFIG.arc1, sections: Array.from({ length: ARC_CONFIG.arc1.end - ARC_CONFIG.arc1.start + 1 }, (_, i) => ARC_CONFIG.arc1.start + i) },
+  { num: 2, ...ARC_CONFIG.arc2, sections: Array.from({ length: ARC_CONFIG.arc2.end - ARC_CONFIG.arc2.start + 1 }, (_, i) => ARC_CONFIG.arc2.start + i) },
+  { num: 3, ...ARC_CONFIG.arc3, sections: Array.from({ length: ARC_CONFIG.arc3.end - ARC_CONFIG.arc3.start + 1 }, (_, i) => ARC_CONFIG.arc3.start + i) }
+];
+---
+
+<div id="scroll-indicator" class="scroll-indicator">
+  <div class="scroll-indicator__container">
+    {arcs.map((arc) => (
+      <div class="scroll-indicator__arc" data-arc={arc.num} title={arc.title}>
+        <div class="scroll-indicator__arc-label">{arc.label}</div>
+        <div class="scroll-indicator__dots">
+          {arc.sections.map((sectionNum) => (
+            <a 
+              href={`#section-${String(sectionNum).padStart(2, '0')}`} 
+              class="scroll-indicator__dot" 
+              data-section={sectionNum} 
+              aria-label={`Section ${sectionNum}`}
+            ></a>
+          ))}
+        </div>
+      </div>
+    ))}
+  </div>
+</div>
+
+<style define:vars={{
+  dotSize: SIZES.dot.default,
+  dotSizeTablet: SIZES.dot.tablet,
+  dotBorderWidth: SIZES.dot.borderWidth,
+  lineWidth: SIZES.lineWidth,
+  arcLabelFontSize: SIZES.arcLabelFontSize,
+  arcLabelLetterSpacing: SIZES.arcLabelLetterSpacing,
+  containerGap: SPACING.containerGap,
+  arcGap: SPACING.arcGap,
+  dotsGap: SPACING.dotsGap,
+  linePadding: SPACING.linePadding,
+  rightOffsetDesktop: SPACING.rightOffset.desktop,
+  rightOffsetTablet: SPACING.rightOffset.tablet,
+  arcTransitionDuration: ANIMATION.arcTransitionDuration,
+  arcTransitionEasing: ANIMATION.arcTransitionEasing,
+  dotTransitionDuration: ANIMATION.dotTransitionDuration,
+  dotTransitionEasing: ANIMATION.dotTransitionEasing,
+  labelTransitionDuration: ANIMATION.labelTransitionDuration,
+  lineTransitionDelay: ANIMATION.lineTransitionDelay,
+  arcSlideDistance: ANIMATION.arcSlideDistance,
+  dotInactiveBg: COLORS.dotInactiveBg,
+  dotInactiveBorder: COLORS.dotInactiveBorder,
+  dotPassedOpacity: COLORS.dotPassedOpacity,
+  arcLabelInactiveOpacity: COLORS.arcLabelInactiveOpacity,
+  lineGradientStart: COLORS.lineGradient.start,
+  lineGradientMiddle: COLORS.lineGradient.middle,
+  lineGradientEnd: COLORS.lineGradient.end,
+  glowShadow: COLORS.glowShadow,
+  bitcoinColor: COLORS.bitcoin,
+  zIndex: Z_INDEX,
+  mobileBreakpoint: `${BREAKPOINTS.mobile}px`,
+  tabletBreakpoint: `${BREAKPOINTS.tablet}px`,
+  dotScaleDefault: SCALES.dotDefault,
+  dotScaleHover: SCALES.dotHover,
+  dotScaleActive: SCALES.dotActive,
+  dotScaleHidden: SCALES.dotHidden
+}}>
+  .scroll-indicator {
+    position: fixed;
+    right: var(--rightOffsetDesktop);
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: var(--zIndex);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .scroll-indicator.visible {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .scroll-indicator__container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--containerGap);
+    align-items: center;
+  }
+
+  .scroll-indicator__arc {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--arcGap);
+    opacity: 0;
+    transform: translateX(var(--arcSlideDistance));
+    transition: opacity var(--arcTransitionDuration) var(--arcTransitionEasing), 
+                transform var(--arcTransitionDuration) var(--arcTransitionEasing);
+  }
+
+  .scroll-indicator__arc.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .scroll-indicator__arc-label {
+    font-size: var(--arcLabelFontSize);
+    font-weight: 700;
+    letter-spacing: var(--arcLabelLetterSpacing);
+    text-transform: uppercase;
+    color: var(--bitcoinColor);
+    opacity: var(--arcLabelInactiveOpacity);
+    transition: opacity var(--labelTransitionDuration) ease;
+  }
+
+  .scroll-indicator__arc.active .scroll-indicator__arc-label {
+    opacity: 1;
+  }
+
+  .scroll-indicator__dots {
+    display: flex;
+    flex-direction: column;
+    gap: var(--dotsGap);
+    align-items: center;
+    position: relative;
+  }
+
+  .scroll-indicator__dot {
+    width: var(--dotSize);
+    height: var(--dotSize);
+    border-radius: 50%;
+    background-color: var(--dotInactiveBg);
+    border: var(--dotBorderWidth) solid var(--dotInactiveBorder);
+    transition: all var(--dotTransitionDuration) var(--dotTransitionEasing);
+    cursor: pointer;
+    position: relative;
+    display: block;
+    opacity: 0;
+    transform: scale(var(--dotScaleHidden)) translateX(10px);
+    z-index: 1;
+  }
+
+  .scroll-indicator__dot.visible {
+    opacity: 1;
+    transform: scale(var(--dotScaleDefault)) translateX(0);
+  }
+
+  .scroll-indicator__dot:hover {
+    background-color: var(--bitcoinColor);
+    border-color: var(--bitcoinColor);
+    transform: scale(var(--dotScaleHover));
+  }
+
+  .scroll-indicator__dot.active {
+    background-color: var(--bitcoinColor);
+    border-color: var(--bitcoinColor);
+    box-shadow: 0 0 8px var(--glowShadow);
+    transform: scale(var(--dotScaleActive));
+  }
+
+  .scroll-indicator__dot.passed {
+    background-color: var(--bitcoinColor);
+    border-color: var(--bitcoinColor);
+    opacity: var(--dotPassedOpacity);
+  }
+
+  /* Connecting line between dots */
+  .scroll-indicator__dots::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: var(--linePadding);
+    bottom: var(--linePadding);
+    width: var(--lineWidth);
+    background: linear-gradient(
+      to bottom,
+      transparent,
+      var(--lineGradientStart) 10%,
+      var(--lineGradientMiddle) 50%,
+      var(--lineGradientEnd) 90%,
+      transparent
+    );
+    transform: translateX(-50%);
+    z-index: -1;
+    opacity: 0;
+    transition: opacity var(--arcTransitionDuration) ease var(--lineTransitionDelay);
+  }
+
+  .scroll-indicator__arc.visible .scroll-indicator__dots::before {
+    opacity: 1;
+  }
+
+  /* Mobile: Hide on small screens */
+  @media (max-width: var(--mobileBreakpoint)) {
+    .scroll-indicator {
+      display: none;
+    }
+  }
+
+  /* Tablet: Smaller size */
+  @media (min-width: calc(var(--mobileBreakpoint) + 1px)) and (max-width: var(--tabletBreakpoint)) {
+    .scroll-indicator {
+      right: var(--rightOffsetTablet);
+    }
+
+    .scroll-indicator__dot {
+      width: var(--dotSizeTablet);
+      height: var(--dotSizeTablet);
+    }
+  }
+</style>
+
+<script define:vars={{
+  indicatorShowDelay: ANIMATION.indicatorShowDelay,
+  staggerDelay: ANIMATION.staggerDelay,
+  lookaheadSections: ANIMATION.lookaheadSections,
+  arc1Start: ARC_CONFIG.arc1.start,
+  arc1End: ARC_CONFIG.arc1.end,
+  arc2Start: ARC_CONFIG.arc2.start,
+  arc2End: ARC_CONFIG.arc2.end,
+  arc3Start: ARC_CONFIG.arc3.start,
+  arc3End: ARC_CONFIG.arc3.end
+}}>
+  class ScrollIndicator {
+    constructor() {
+      this.indicator = document.getElementById('scroll-indicator');
+      this.arcs = document.querySelectorAll('.scroll-indicator__arc');
+      this.dots = document.querySelectorAll('.scroll-indicator__dot');
+      this.sections = document.querySelectorAll('.section-wrapper');
+      this.currentSection = 1;
+      this.config = {
+        indicatorShowDelay: indicatorShowDelay,
+        staggerDelay: staggerDelay,
+        lookaheadSections: lookaheadSections,
+        arcs: [
+          { start: arc1Start, end: arc1End },
+          { start: arc2Start, end: arc2End },
+          { start: arc3Start, end: arc3End }
+        ]
+      };
+      this.init();
+    }
+
+    init() {
+      if (!this.indicator || this.sections.length === 0) return;
+
+      // Show indicator after a short delay
+      setTimeout(() => {
+        this.indicator?.classList.add('visible');
+      }, this.config.indicatorShowDelay);
+
+      // Set up scroll listener
+      window.addEventListener('scroll', () => this.handleScroll(), { passive: true });
+      
+      // Initial check
+      this.handleScroll();
+
+      // Smooth scroll for dot clicks
+      this.dots.forEach(dot => {
+        dot.addEventListener('click', (e) => {
+          e.preventDefault();
+          const targetId = dot.getAttribute('href');
+          const target = document.querySelector(targetId);
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        });
+      });
+    }
+
+    handleScroll() {
+      const viewportCenter = window.innerHeight / 2;
+      let activeSection = 1;
+      let closestDistance = Infinity;
+
+      // Find which section is closest to the viewport center
+      this.sections.forEach((section, index) => {
+        const rect = section.getBoundingClientRect();
+        const sectionCenter = rect.top + rect.height / 2;
+        const distance = Math.abs(sectionCenter - viewportCenter);
+
+        // Check if section is in viewport
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+          if (distance < closestDistance) {
+            closestDistance = distance;
+            activeSection = index + 1;
+          }
+        }
+      });
+
+      // Fallback: if no section found, use scroll position
+      if (activeSection === 1 && closestDistance === Infinity) {
+        const scrollPosition = window.scrollY + viewportCenter;
+        this.sections.forEach((section, index) => {
+          const rect = section.getBoundingClientRect();
+          const sectionTop = rect.top + window.scrollY;
+          const sectionBottom = sectionTop + rect.height;
+
+          if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+            activeSection = index + 1;
+          }
+        });
+      }
+
+      // Update current section
+      this.currentSection = activeSection;
+
+      // Update dots
+      this.updateDots(activeSection);
+
+      // Update arcs visibility
+      this.updateArcs(activeSection);
+    }
+
+    updateDots(activeSection) {
+      this.dots.forEach((dot, index) => {
+        const sectionNum = index + 1;
+        dot.classList.remove('active', 'passed');
+
+        if (sectionNum === activeSection) {
+          dot.classList.add('active');
+        } else if (sectionNum < activeSection) {
+          dot.classList.add('passed');
+        }
+
+        // Show dots up to current section + lookahead sections with staggered animation
+        if (sectionNum <= activeSection + this.config.lookaheadSections) {
+          // Use requestAnimationFrame for smoother animations
+          requestAnimationFrame(() => {
+            setTimeout(() => {
+              dot.classList.add('visible');
+            }, Math.max(0, (sectionNum - activeSection) * this.config.staggerDelay));
+          });
+        } else {
+          // Hide dots that are too far ahead
+          dot.classList.remove('visible');
+        }
+      });
+    }
+
+    updateArcs(activeSection) {
+      this.arcs.forEach((arc, index) => {
+        const arcNum = index + 1;
+        const arcConfig = this.config.arcs[index];
+        let shouldShow = false;
+        let isActive = false;
+
+        // Show arc if we've reached its start section
+        shouldShow = activeSection >= arcConfig.start;
+        // Arc is active if current section is within its range
+        isActive = activeSection >= arcConfig.start && activeSection <= arcConfig.end;
+
+        if (shouldShow) {
+          arc.classList.add('visible');
+        }
+
+        if (isActive) {
+          arc.classList.add('active');
+        } else {
+          arc.classList.remove('active');
+        }
+      });
+    }
+  }
+
+  // Initialize when DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => new ScrollIndicator());
+  } else {
+    new ScrollIndicator();
+  }
+</script>
+

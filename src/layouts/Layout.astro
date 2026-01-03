@@ -16,6 +16,7 @@ import global_settings from "../data/global_settings.json"
 import DialogModal from "../components/DialogModal.astro"
 import FooterMain from "../components/FooterMain.astro"
 import HeaderMain from "../components/HeaderMain.astro"
+import ScrollIndicator from "../components/ScrollIndicator.astro"
 
 const { title, description } = Astro.props
 
@@ -61,6 +62,9 @@ const isIndexPage = Astro.url.pathname === '/' || Astro.url.pathname === '/index
 
     <!-- Header -->
     <HeaderMain settings={ global_settings } />
+
+    <!-- Scroll Indicator -->
+    {isIndexPage && <ScrollIndicator />}
 
     <!-- Main slot -->
     <main id="main">
