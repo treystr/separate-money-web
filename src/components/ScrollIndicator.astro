@@ -104,7 +104,13 @@ const arcs = [
   <div class="scroll-indicator__container">
     {arcs.map((arc) => (
       <div class="scroll-indicator__arc" data-arc={arc.num} title={arc.title}>
-        <div class="scroll-indicator__arc-label">{arc.label}</div>
+        <a 
+          href={`#section-${String(arc.start).padStart(2, '0')}`}
+          class="scroll-indicator__arc-label"
+          title={`Jump to ${arc.title}`}
+        >
+          {arc.label}
+        </a>
         <div class="scroll-indicator__dots">
           {arc.sections.map((sectionNum) => (
             <a 
@@ -205,6 +211,12 @@ const arcs = [
     color: var(--bitcoinColor);
     opacity: var(--arcLabelInactiveOpacity);
     transition: opacity var(--labelTransitionDuration) ease;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .scroll-indicator__arc-label:hover {
+    opacity: 1;
   }
 
   .scroll-indicator__arc.active .scroll-indicator__arc-label {
@@ -357,6 +369,19 @@ const arcs = [
         dot.addEventListener('click', (e) => {
           e.preventDefault();
           const targetId = dot.getAttribute('href');
+          const target = document.querySelector(targetId);
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        });
+      });
+
+      // Smooth scroll for arc label clicks
+      const arcLabels = document.querySelectorAll('.scroll-indicator__arc-label');
+      arcLabels.forEach(label => {
+        label.addEventListener('click', (e) => {
+          e.preventDefault();
+          const targetId = label.getAttribute('href');
           const target = document.querySelector(targetId);
           if (target) {
             target.scrollIntoView({ behavior: 'smooth', block: 'start' });
