@@ -1,7 +1,5 @@
 ---
 
-import X from '../assets/theme-images/icon-x.svg'
-
 const { content } = Astro.props
 
 ---
@@ -17,9 +15,9 @@ const { content } = Astro.props
       <span>{ content.title }</span>
 
       <button onclick="this.closest('dialog').close('close')" aria-label="Close"
-        class="bs-btn rounded-full !p-0 flex items-center justify-center h-10 w-10">
+        class="bs-btn rounded-full !p-0 flex items-center justify-center h-10 w-10 text-xl">
 
-        <X class="scale-75 opacity-75" width="32" height="32" />
+        ×
 
       </button>
 

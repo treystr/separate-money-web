@@ -1,7 +1,5 @@
 ---
 
-import Logo from '../assets/theme-images/logo.svg'
-
 const { settings } = Astro.props
 
 ---
@@ -14,7 +12,9 @@ const { settings } = Astro.props
     <!-- Logo -->
     <a class="flex xl:min-w-32 group" href="/" aria-label={ settings.title + ' - Home' }>
 
-      <Logo class="group-hover:-rotate-180 group-hover:scale-80 transition-transform ease-bs-spring duration-1000" height="48" width="48" />
+      <span class="text-xl font-bold group-hover:scale-105 transition-transform ease-bs-spring duration-1000">
+        { settings.title }
+      </span>
 
     </a>
 
@@ -44,5 +44,5 @@ const { settings } = Astro.props
 </header>
 
 <script>
-  import "../assets/js/header-scroll.js"
+  import "../../assets/js/header-scroll.js"
 </script>
