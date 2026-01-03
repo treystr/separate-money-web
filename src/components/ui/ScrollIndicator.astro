@@ -15,6 +15,34 @@ const ARC_CONFIG = {
   arc3: { start: 11, end: 18, label: "The Way Out", title: "Arc III: The Way Out" }
 };
 
+// Map section numbers to their filename slugs (kebab-case)
+// These match the component filenames converted to URL-friendly slugs
+const SECTION_SLUGS = {
+  1: "youre-not-crazy",
+  2: "turning-point-1971",
+  3: "daily-grind",
+  4: "vanishing-opportunity",
+  5: "money-broken-society-divides",
+  6: "why-everything-broken",
+  7: "nixon-shock",
+  8: "inflation-hidden-tax",
+  9: "who-gets-new-money-first",
+  10: "unlimited-money-endless-spending",
+  11: "you-can-choose-better-money",
+  12: "money-stores-time-energy",
+  13: "rules-without-rulers",
+  14: "born-from-last-crisis",
+  15: "peaceful-separation-hayek",
+  16: "privacy-as-human-right",
+  17: "real-people-real-freedom",
+  18: "your-exit-starts-here"
+};
+
+// Helper function to get section slug
+function getSectionSlug(sectionNum) {
+  return SECTION_SLUGS[sectionNum] || `section-${String(sectionNum).padStart(2, '0')}`;
+}
+
 // Create a map of section numbers to titles from the data
 const sectionTitles = {};
 sectionsData.sections.forEach(section => {
@@ -105,7 +133,7 @@ const arcs = [
     {arcs.map((arc) => (
       <div class="scroll-indicator__arc" data-arc={arc.num} title={arc.title}>
         <a 
-          href={`#section-${String(arc.start).padStart(2, '0')}`}
+          href={`#${getSectionSlug(arc.start)}`}
           class="scroll-indicator__arc-label"
           title={`Jump to ${arc.title}`}
         >
@@ -114,7 +142,7 @@ const arcs = [
         <div class="scroll-indicator__dots">
           {arc.sections.map((sectionNum) => (
             <a 
-              href={`#section-${String(sectionNum).padStart(2, '0')}`} 
+              href={`#${getSectionSlug(sectionNum)}`} 
               class="scroll-indicator__dot" 
               data-section={sectionNum} 
               title={sectionTitles[sectionNum] || `Section ${sectionNum}`}
@@ -332,11 +360,11 @@ const arcs = [
       this.indicator = document.getElementById('scroll-indicator');
       this.arcs = document.querySelectorAll('.scroll-indicator__arc');
       this.dots = document.querySelectorAll('.scroll-indicator__dot');
-      // Filter out hero section - only include sections with IDs starting with "section-"
+      // Filter out hero section - include all sections except hero
       const allSections = Array.from(document.querySelectorAll('.section-wrapper'));
       this.sections = allSections.filter(section => {
         const id = section.id;
-        return id && id.startsWith('section-');
+        return id && id !== 'hero-section' && id !== 'section-19';
       });
       this.heroSection = document.getElementById('hero-section');
       this.currentSection = 1;
@@ -369,7 +397,7 @@ const arcs = [
         dot.classList.add('visible');
       });
 
-      // Don't show indicator initially - it will show when scrolling to section-01
+      // Don't show indicator initially - it will show when scrolling to first section
       // Set up scroll listener
       window.addEventListener('scroll', () => this.handleScroll(), { passive: true });
       
@@ -407,8 +435,10 @@ const arcs = [
     updateDotTitles() {
       this.dots.forEach(dot => {
         const sectionNum = parseInt(dot.getAttribute('data-section'));
-        const sectionId = `section-${String(sectionNum).padStart(2, '0')}`;
-        const section = document.getElementById(sectionId);
+        // Get section slug from href (which uses the new slug format)
+        const href = dot.getAttribute('href');
+        const sectionId = href ? href.substring(1) : null; // Remove the #
+        const section = sectionId ? document.getElementById(sectionId) : null;
         
         if (section) {
           // Try to find h2 element in the section
